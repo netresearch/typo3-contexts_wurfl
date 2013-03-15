@@ -34,7 +34,7 @@ class Tx_Contexts_Wurfl_Api_Model_Import
 		);
 
 		$xmlFile = $this->extract(
-			$this->download($extConf['importUrl'])
+			$this->download($extConf['remoteRepository'])
 		);
 
 		$xml = new SimpleXMLElement($xmlFile, LIBXML_NOERROR, true);

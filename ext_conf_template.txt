@@ -8,4 +8,7 @@
 #wurflConfig = wurfl_config.php
 
 # cat=basic; type=string; label=URL to download wurfl.xml or compressed version of it (zip)
-importUrl = http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
+remoteRepository = http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
+
+# cat=basic/dev/1000; type=user[EXT:contexts_wurfl/mod/class.extmgm_extend.php:tx_contextswurfl_extmgmextend->displayMessage]; label=
+updateMessage=0
