@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-03-15T12:00:00Z" product-name="contexts_wurfl">
+		<header/>
+		<body>
+			<trans-unit id="importTask.name" xml:space="preserve">
+				<source>WURFL import task</source>
+			</trans-unit>
+			<trans-unit id="importTask.description" xml:space="preserve">
+				<source>This task imports a new WURFL resource file</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -27,5 +27,17 @@ class Tx_Contexts_Wurfl_Api_Model_Import
 	public function __construct()
 	{
 	}
+
+
+	/**
+	 * Downloads the configured WURFL xml file.
+	 *
+	 * @return void
+	 */
+	function download()
+	{
+		$importUrl = $GLOBALS['$TYPO3_CONF_VARS']['EXTCONF']
+			['contexts_wurfl']['importUrl'];
+	}
 }
 ?>

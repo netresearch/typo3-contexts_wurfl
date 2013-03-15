@@ -8,6 +8,9 @@ $extensionClassesPath = $extensionPath . 'Classes/';
 return array(
 	'tx_contexts_wurfl_context_type_wurfl'
 		=> $extensionClassesPath . 'Context/Type/Wurfl.php',
+
+	'tx_contexts_wurfl_service_importtask'
+		=> $extensionClassesPath . 'Service/ImportTask.php',
 );
 
 ?>
