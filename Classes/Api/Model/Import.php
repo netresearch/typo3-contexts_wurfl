@@ -17,7 +17,6 @@ declare(encoding = 'UTF-8');
  * @category Contexts
  * @package  WURFL
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
- * @license  http://opensource.org/licenses/gpl-license GPLv2 or later
  */
 class Tx_Contexts_Wurfl_Api_Model_Import
 {
@@ -28,16 +27,27 @@ class Tx_Contexts_Wurfl_Api_Model_Import
 	{
 	}
 
+	public function import()
+	{
+var_dump($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['contexts_wurfl']);
+exit;
+
+		$this->download(
+			$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['contexts_wurfl']['importUrl']
+		);
+
+		return true;
+	}
 
 	/**
 	 * Downloads the configured WURFL xml file.
 	 *
-	 * @return void
+	 * @return string
 	 */
-	function download()
+	protected function download($importUrl)
 	{
-		$importUrl = $GLOBALS['$TYPO3_CONF_VARS']['EXTCONF']
-			['contexts_wurfl']['importUrl'];
+var_dump($importUrl);
+exit;
 	}
 }
 ?>

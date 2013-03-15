@@ -35,7 +35,6 @@ require_once t3lib_extMgm::extPath('contexts') . 'Classes/Context/Abstract.php';
  * @category Contexts
  * @package  WURFL
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
- * @license  http://opensource.org/licenses/gpl-license GPLv2 or later
  */
 class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
 {
