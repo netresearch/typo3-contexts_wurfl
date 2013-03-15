@@ -29,12 +29,18 @@ class Tx_Contexts_Wurfl_Api_Model_Import
 
 	public function import()
 	{
-var_dump($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['contexts_wurfl']);
-exit;
-
-		$this->download(
-			$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['contexts_wurfl']['importUrl']
+		$extConf = unserialize(
+			$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
 		);
+
+		$xmlFile = $this->extract(
+			$this->download($extConf['importUrl'])
+		);
+
+		$xml = new SimpleXMLElement($xmlFile, LIBXML_NOERROR, true);
+
+var_dump($xml);
+exit;
 
 		return true;
 	}
@@ -46,8 +52,54 @@ exit;
 	 */
 	protected function download($importUrl)
 	{
-var_dump($importUrl);
-exit;
+		$remoteFile = fopen($importUrl, 'rb');
+
+		if ($remoteFile) {
+			$tempFile  = tempnam('/tmp', 'wurfl_');
+			$localFile = fopen($tempFile, 'wb');
+
+			if ($localFile) {
+				while (!feof($remoteFile)) {
+					fwrite($localFile, fread($remoteFile, 1024 * 8), 1024 * 8);
+				}
+			}
+		}
+
+		if ($localFile) {
+			fclose($localFile);
+		}
+
+		if ($remoteFile) {
+			fclose($remoteFile);
+		}
+
+		return $tempFile;
+	}
+
+	protected function extract($tempFile)
+	{
+		$zip     = zip_open($tempFile);
+		$xmlFile = $tempFile . '_wurfl.xml';
+
+		if ($zip) {
+			if ($zip_entry = zip_read($zip)) {
+				$fp = fopen($xmlFile, 'w');
+
+				if (zip_entry_open($zip, $zip_entry, 'r')) {
+					$buf = zip_entry_read(
+						$zip_entry, zip_entry_filesize($zip_entry)
+					);
+
+					fwrite($fp, $buf);
+					zip_entry_close($zip_entry);
+					fclose($fp);
+				}
+			}
+
+			zip_close($zip);
+		}
+
+		return $xmlFile;
 	}
 }
 ?>
