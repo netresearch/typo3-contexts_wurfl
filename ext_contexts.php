@@ -16,7 +16,7 @@ defined('TYPO3_MODE') or die('Access denied.');
 Tx_Contexts_Api_Configuration::registerContextType(
 	'wurfl',
 	'Geräteeigenschaften',
-	'Tx_Contexts_Wurfl',
+	'Tx_Contexts_Wurfl_Context_Type_Wurfl',
 	'FILE:EXT:contexts_wurfl/Configuration/flexform/Wurfl.xml'
 );
 
