@@ -15,6 +15,9 @@
  * @license    GNU Affero General Public License
  * @version    $id$
  */
+
+define('EXT_TEMP_DATADIR', '../../../../../typo3temp/contexts_wurfl/');
+
 /**
  * This static class provides the global configuration settings for Tera-WURFL.
  * @package TeraWurfl
@@ -22,6 +25,7 @@
  *
  */
 class TeraWurflConfig{
+
 	/**
 	 * Database Hostname
 	 * To specify the MySQL 5 TCP port or use a named pipe / socket, put it at the end of your hostname,
@@ -30,49 +34,49 @@ class TeraWurflConfig{
 	 * For MongoDB, enter a hostname or a MongoDB Connection String, like "mongodb:///tmp/mongodb-27017.sock,localhost:27017"
 	 * @var String
 	 */
-	public static $DB_HOST = "192.168.1.48";
+	public static $DB_HOST = TYPO3_db_host;
 	/**
 	 * Database User
 	 * For MongoDB, this may be blank if authentication is not used
 	 * @var String
 	 */
-	public static $DB_USER = "typo";
+	public static $DB_USER = TYPO3_db_username;
 	/**
 	 * Database Password
 	 * For MongoDB, this may be blank if authentication is not used
 	 * @var String
 	 */
-	public static $DB_PASS = 'typotypo';
+	public static $DB_PASS = TYPO3_db_password;
 	/**
 	 * Database Name / Schema Name
 	 * @var String
 	 */
-	public static $DB_SCHEMA = "typo3_cms_47_rso";
+	public static $DB_SCHEMA = TYPO3_db;
 	/**
 	 * Database Connector (MySQL4, MySQL5, MSSQL2005, MongoDB)
 	 * @var String
 	 */
-	public static $DB_CONNECTOR = "MySQL5";
+	public static $DB_CONNECTOR = 'MySQL5';
 	/**
 	 * Prefix used for all database tables
 	 * @var String
 	 */
-	public static $TABLE_PREFIX = "tx_contexts_wurfl";
+	public static $TABLE_PREFIX = 'tx_contexts_wurfl';
 	/**
 	 * URL of WURFL File.  If you have multiple installations of Tera-WURFL, you can set this to a location on your network.
 	 * @var String
 	 */
-	public static $WURFL_DL_URL = "http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download";
+	public static $WURFL_DL_URL = '';
 	/**
 	 * URL of CVS WURFL File
 	 * @var String
 	 */
-	public static $WURFL_CVS_URL = "http://wurfl.cvs.sourceforge.net/%2Acheckout%2A/wurfl/xml/wurfl.xml";
+	public static $WURFL_CVS_URL = 'http://wurfl.cvs.sourceforge.net/%2Acheckout%2A/wurfl/xml/wurfl.xml';
 	/**
 	 * Data Directory
 	 * @var String
 	 */
-	public static $DATADIR = 'data/';
+	public static $DATADIR = EXT_TEMP_DATADIR;
 	/**
 	 * Enable Caching System
 	 * @var Bool
@@ -115,7 +119,7 @@ class TeraWurflConfig{
 	 * PHP Memory Limit.  See OVERRIDE_MEMORY_LIMIT for more info
 	 * @var String
 	 */
-	public static $MEMORY_LIMIT = "768M";
+	public static $MEMORY_LIMIT = '768M';
 	/**
 	 * Enable the SimpleDesktop Matching Engine.  This feature bypasses the advanced detection methods that are normally used while detecting
 	 * desktop web browsers; instead, most desktop browsers are detected using simple keywords and expressions.  When enabled, this setting
