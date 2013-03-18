@@ -29,11 +29,70 @@ class Tx_Contexts_Wurfl_Service_ImportTask extends tx_scheduler_Task
 	 */
 	public function execute()
 	{
-		$instance = new Tx_Contexts_Wurfl_Api_Model_Import(
+		$importer = new Tx_Contexts_Wurfl_Api_Model_Import(
 			TeraWurflUpdater::SOURCE_REMOTE
 		);
 
-		return $instance->import();
+		$result = $importer->import(true);
+
+		// No update available, WURFL data is already up to date
+		if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+			$this->scheduler->log(
+				'No update necessary. Your WURFL data is already up to date.'
+			);
+			return true;
+		}
+
+		$this->showStatus($result, $importer->getUpdater());
+		return true;
+	}
+
+	/**
+	 * Show status of update.
+	 *
+	 * @param boolean          $status  TRUE/FALSE
+	 * @param TeraWurflUpdater $updater WURFL updater instance
+	 *
+	 * @return void
+	 */
+	protected function showStatus($status, TeraWurflUpdater $updater)
+	{
+		if ($status) {
+			$this->scheduler->log('Database Update OK');
+
+			$this->scheduler->log(
+				'WURFL Version: '
+				. $updater->loader->version
+				. ' (' . $updater->loader->last_updated . ')'
+			);
+			$this->scheduler->log(
+				'WURFL Devices: '
+				. $updater->loader->mainDevices
+			);
+			$this->scheduler->log(
+				'PATCH New Devices: '
+				. $updater->loader->patchAddedDevices
+			);
+			$this->scheduler->log(
+				'PATCH Merged Devices: '
+				. $updater->loader->patchMergedDevices
+			);
+
+			if (count($updater->loader->errors) > 0) {
+				$this->scheduler->log('Errors:');
+
+				foreach ($updater->loader->errors as $error) {
+					$this->scheduler->log($error);
+				}
+			}
+		} else {
+			$this->scheduler->log('ERROR LOADING DATA!');
+			$this->scheduler->log('Errors:');
+
+			foreach ($updater->loader->errors as $error) {
+				$this->scheduler->log($error);
+			}
+		}
 	}
 }
 ?>
