@@ -137,13 +137,13 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 	{
 		$this->cli_echo('Beginning import from local source.' . "\n");
 
-		$import = new Tx_Contexts_Wurfl_Api_Model_Import(
+		$importer = new Tx_Contexts_Wurfl_Api_Model_Import(
 			TeraWurflUpdater::SOURCE_LOCAL
 		);
 
 		$this->showStatus(
-			$import->importLocal(),
-			$import->getUpdater()
+			$importer->import(),
+			$importer->getUpdater()
 		);
 
 		return true;
@@ -161,11 +161,11 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 	{
 		$this->cli_echo('Beginning import from remote source.' . "\n");
 
-		$import = new Tx_Contexts_Wurfl_Api_Model_Import(
+		$importer = new Tx_Contexts_Wurfl_Api_Model_Import(
 			TeraWurflUpdater::SOURCE_REMOTE
 		);
 
-		$result = $import->importRemote($force);
+		$result = $importer->import($force);
 
 		// No update available, WURFL data is already up to date
 		if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
@@ -177,7 +177,7 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 			return true;
 		}
 
-		$this->showStatus($result, $import->getUpdater());
+		$this->showStatus($result, $importer->getUpdater());
 
 		return true;
 	}

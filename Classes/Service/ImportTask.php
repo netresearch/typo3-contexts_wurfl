@@ -29,7 +29,10 @@ class Tx_Contexts_Wurfl_Service_ImportTask extends tx_scheduler_Task
 	 */
 	public function execute()
 	{
-		$instance = new Tx_Contexts_Wurfl_Api_Model_Import();
+		$instance = new Tx_Contexts_Wurfl_Api_Model_Import(
+			TeraWurflUpdater::SOURCE_REMOTE
+		);
+
 		return $instance->import();
 	}
 }

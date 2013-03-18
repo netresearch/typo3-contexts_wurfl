@@ -6,9 +6,9 @@ declare(encoding = 'UTF-8');
  *
  * PHP version 5
  *
- * @category   Extensions
- * @package    TYPO3
- * @subpackage Module
+ * @category   Contexts
+ * @package    WURFL
+ * @subpackage Configuration
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
 define('TYPO3_MOD_PATH', '../typo3conf/ext/contexts_wurfl/mod/');
@@ -24,52 +24,44 @@ require $BACK_PATH . 'init.php';
 //make sure only admins do that
 $BE_USER->modAccess($MCONF, 1);
 
-
-$strApiPath = realpath(__DIR__ . '/../Library/wurfl-dbapi-1.4.4.0/');
-
-require_once $strApiPath . '/TeraWurfl.php';
-require_once $strApiPath . '/TeraWurflUtils/TeraWurflUpdater.php';
-
-$wurfl   = new TeraWurfl();
-$updater = new TeraWurflUpdater($wurfl, 'local');
-
-
-try {
-	$status = $updater->update();
-} catch (TeraWurflUpdateDownloaderException $e) {
-// 	$sf = ($updater->downloader->download_url == 'http://downloads.sourceforge.net/project/wurfl/WURFL/latest/wurfl-latest.zip');
-// 	header("Location: index.php?msg=".urlencode($e->getMessage())."&severity=error&sf404=".$sf);
-// 	exit(0);
-}
+// Import from local source
+$import  = new Tx_Contexts_Wurfl_Api_Model_Import(TeraWurflUpdater::SOURCE_LOCAL);
+$status  = $import->import();
+$updater = $import->getUpdater();
 
 if ($status) {
-	echo "<strong>Database Update OK</strong><hr />";
+	echo 'Database Update OK<br />';
 
-	echo 'WURFL Version: ' . $updater->loader->version
-		. ' (' . $updater->loader->last_updated . ')<br />';
-	echo 'WURFL Devices: ' . $updater->loader->mainDevices . '<br/>';
-	echo 'PATCH New Devices: '  .$updater->loader->patchAddedDevices . '<br/>';
-	echo 'PATCH Merged Devices: ' . $updater->loader->patchMergedDevices . '<br/>';
+	echo 'WURFL Version: '
+		. $updater->loader->version
+		. ' (' . $updater->loader->last_updated . ')'
+		. '<br />';
+	echo 'WURFL Devices: '
+		. $updater->loader->mainDevices . '<br />';
+	echo 'PATCH New Devices: '
+		. $updater->loader->patchAddedDevices . '<br />';
+	echo 'PATCH Merged Devices: '
+		. $updater->loader->patchMergedDevices . '<br />';
 
 	if (count($updater->loader->errors) > 0) {
-		echo '<pre>';
+		echo 'Errors:<br />';
 
 		foreach ($updater->loader->errors as $error) {
-			echo htmlspecialchars($error) . "\n";
+			echo htmlentities($error) . '<br />';
 		}
 
-		echo '</pre>';
+		echo '<br />';
 	}
 } else {
-	echo 'ERROR LOADING DATA!<br/>';
-	echo 'Errors: <br/>' . "\n";
-	echo '<pre>';
+	echo 'ERROR LOADING DATA!<br />';
+	echo 'Errors:<br />';
+	echo '<br />';
 
 	foreach ($updater->loader->errors as $error) {
-		echo htmlspecialchars($error) . "\n";
+		echo htmlentities($error) . '<br />';
 	}
 
-	echo '</pre>';
+	echo '<br />';
 }
 
 ?>

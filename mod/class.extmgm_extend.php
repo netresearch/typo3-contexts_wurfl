@@ -1,30 +1,25 @@
 <?php
 declare(encoding = 'UTF-8');
+
 /**
- * Coremetrics integration
+ * Extension configuration integration.
  *
  * PHP version 5
  *
- * @category   Extensions
- * @package    TYPO3
- * @subpackage tx_nrcoremetrics
- * @author     Christian Weiske <christian.weiske@netresearch.de>
- * @license    GPL3 http://www.gnu.org/licenses/gpl.html
- * @link       http://www.netresearch.de/
+ * @category   Contexts
+ * @package    WURFL
+ * @subpackage Configuration
+ * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
 
 /**
- * Shows the information box on the extension detail page
+ * Shows an information box on the extension detail page
  * in the extension manager.
  *
- * This is pretty hacky, but the only way I see now. Idea stolen from tt_news 3.0.
- *
- * @category   Extensions
- * @package    TYPO3
- * @subpackage tx_nrcoremetrics
- * @author     Christian Weiske <christian.weiske@netresearch.de>
- * @license    GPL3 http://www.gnu.org/licenses/gpl.html
- * @link       http://www.netresearch.de/
+ * @category   Contexts
+ * @package    WURFL
+ * @subpackage Configuration
+ * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
 class tx_contextswurfl_extmgmextend
 {
@@ -36,7 +31,7 @@ class tx_contextswurfl_extmgmextend
 	public function displayMessage()
 	{
 		return
-<<<XML
+<<<HTML
 	<div style="position: absolute; top: 40px; right: 20px; width: 300px;">
 		<div class="typo3-message message-information">
 			<strong>contexts_wurfl actions</strong>
@@ -46,8 +41,7 @@ class tx_contextswurfl_extmgmextend
 			</ul>
 		</div>
 	</div>
-XML;
+HTML;
 	}
 }
-
 ?>
