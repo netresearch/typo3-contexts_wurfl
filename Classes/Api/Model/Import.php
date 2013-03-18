@@ -12,6 +12,16 @@ declare(encoding = 'UTF-8');
  */
 
 /**
+ * Includes
+ */
+$strApiPath = realpath(
+	PATH_typo3conf . 'ext/contexts_wurfl/Library/wurfl-dbapi-1.4.4.0/'
+);
+
+require_once $strApiPath . '/TeraWurfl.php';
+require_once $strApiPath . '/TeraWurflUtils/TeraWurflUpdater.php';
+
+/**
  * Class used to import WURFL data.
  *
  * @category Contexts
@@ -21,85 +31,111 @@ declare(encoding = 'UTF-8');
 class Tx_Contexts_Wurfl_Api_Model_Import
 {
 	/**
-	 * Constructor.
+	 * @var Return code: Update ok
 	 */
-	public function __construct()
+	const STATUS_OK = 0;
+
+	/**
+	 * @var Return code: No update available, Data up to date
+	 */
+	const STATUS_NO_UPDATE = 1;
+
+	/**
+	 * TeraWurfl instance.
+	 *
+	 * @var TeraWurfl
+	 */
+	protected $wurfl = null;
+
+	/**
+	 * TeraWurflUpdater instance.
+	 *
+	 * @var TeraWurflUpdater
+	 */
+	protected $updater = null;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string $type Type of source to import from
+	 */
+	public function __construct($type = TeraWurflUpdater::SOURCE_LOCAL)
 	{
+		if (!is_dir(TeraWurflConfig::$DATADIR)) {
+			mkdir(TeraWurflConfig::$DATADIR, 0777, true);
+		}
+
+		$this->wurfl   = new TeraWurfl();
+		$this->updater = new TeraWurflUpdater($this->wurfl, $type);
 	}
 
-	public function import()
+	/**
+	 * Get updater instance.
+	 *
+	 * @return TeraWurflUpdater
+	 */
+	public function getUpdater()
 	{
+		return $this->updater;
+	}
+
+	/**
+	 * Imports a local version of a WURFL resource file.
+	 *
+	 * @return boolean
+	 */
+	public function importLocal()
+	{
+		return $this->import();
+	}
+
+	/**
+	 * Imports the WURFL resource file from the specified source
+	 * (local or remote).
+	 *
+	 * @param boolean $force Force update (only valid for type "remote")
+	 *
+	 * @return boolean|integer
+	 */
+	public function importRemote($force = false)
+	{
+		// Use download url from extension configuration
 		$extConf = unserialize(
 			$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
 		);
 
-		$xmlFile = $this->extract(
-			$this->download($extConf['remoteRepository'])
-		);
+		$this->updater->downloader->download_url = $extConf['remoteRepository'];
 
-		$xml = new SimpleXMLElement($xmlFile, LIBXML_NOERROR, true);
+		try {
+			$available = $this->updater->isUpdateAvailable();
+		}
+		catch (Exception $ex) {
+			$available = true;
+		}
 
-var_dump($xml);
-exit;
+		// No update available, WURFL data is already up to date
+		if (!$force && !$available) {
+			return self::STATUS_NO_UPDATE;
+		}
 
-		return true;
+		return $this->import();
 	}
 
 	/**
-	 * Downloads the configured WURFL xml file.
+	 * Imports the WURFL resource file from the specified source
+	 * (local or remote).
 	 *
-	 * @return string
+	 * @return boolean
 	 */
-	protected function download($importUrl)
+	protected function import()
 	{
-		$remoteFile = fopen($importUrl, 'rb');
-
-		if ($remoteFile) {
-			$tempFile  = tempnam('/tmp', 'wurfl_');
-			$localFile = fopen($tempFile, 'wb');
-
-			if ($localFile) {
-				while (!feof($remoteFile)) {
-					fwrite($localFile, fread($remoteFile, 1024 * 8), 1024 * 8);
-				}
-			}
+		try {
+			return $this->updater->update();
+		}
+		catch (TeraWurflUpdateDownloaderException $ex) {
 		}
 
-		if ($localFile) {
-			fclose($localFile);
-		}
-
-		if ($remoteFile) {
-			fclose($remoteFile);
-		}
-
-		return $tempFile;
-	}
-
-	protected function extract($tempFile)
-	{
-		$zip     = zip_open($tempFile);
-		$xmlFile = $tempFile . '_wurfl.xml';
-
-		if ($zip) {
-			if ($zip_entry = zip_read($zip)) {
-				$fp = fopen($xmlFile, 'w');
-
-				if (zip_entry_open($zip, $zip_entry, 'r')) {
-					$buf = zip_entry_read(
-						$zip_entry, zip_entry_filesize($zip_entry)
-					);
-
-					fwrite($fp, $buf);
-					zip_entry_close($zip_entry);
-					fclose($fp);
-				}
-			}
-
-			zip_close($zip);
-		}
-
-		return $xmlFile;
+		return true;
 	}
 }
 ?>
