@@ -13,7 +13,7 @@ declare(encoding = 'UTF-8');
  */
 
 /**
- * Shows an information box on the extension detail page
+ * Shows an information box on the extension configuration page
  * in the extension manager.
  *
  * @category   Contexts
@@ -21,10 +21,10 @@ declare(encoding = 'UTF-8');
  * @subpackage Configuration
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class tx_contextswurfl_extmgmextend
+class Tx_Contexts_Wurfl_Service_ExtManager
 {
 	/**
-	 * Generates and returns the information message
+	 * Generates and returns the information message.
 	 *
 	 * @return string HTML code
 	 */
@@ -32,12 +32,18 @@ class tx_contextswurfl_extmgmextend
 	{
 		return
 <<<HTML
-	<div style="position: absolute; top: 40px; right: 20px; width: 300px;">
+	<div style="position: absolute; top: 40px; right: 20px; width: 400px;">
 		<div class="typo3-message message-information">
-			<strong>contexts_wurfl actions</strong>
+			<strong>contexts_wurfl actions:</strong>
 			<ul>
-				<li><a href="/typo3conf/ext/contexts_wurfl/mod/updateDbLocal.php">Update db from local file</a></li>
-				<li><a href="/typo3conf/ext/contexts_wurfl/mod/updateDbRemote.php">Update db from remote repository</a></li>
+				<li style="margin: 0px;">
+					<a href="/typo3conf/ext/contexts_wurfl/Scripts/ImportDbLocal.php">
+						Update wurfl db from local file</a>
+				</li>
+				<li style="margin: 0px;">
+					<a href="/typo3conf/ext/contexts_wurfl/Scripts/ImportDbRemote.php">
+						Update wurfl db from remote repository (forced)</a>
+				</li>
 			</ul>
 		</div>
 	</div>

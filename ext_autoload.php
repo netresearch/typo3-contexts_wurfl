@@ -18,5 +18,4 @@ return array(
 	'tx_contexts_wurfl_service_importcli'
 		=> $extensionClassesPath . 'Service/ImportCli.php',
 );
-
 ?>

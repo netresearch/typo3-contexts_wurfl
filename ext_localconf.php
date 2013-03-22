@@ -32,5 +32,4 @@ if (TYPO3_MODE !== 'BE') {
 	// We load that file in ext_tables.php for the backend
 	require_once t3lib_extMgm::extPath($_EXTKEY) . 'ext_contexts.php';
 }
-
 ?>

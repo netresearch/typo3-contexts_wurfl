@@ -107,7 +107,7 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 	protected function import()
 	{
 		if (!$this->cli_isArg('--type')) {
-			$this->cli_echo('You need to specify the -s option.' . "\n", true);
+			$this->cli_echo('You need to specify the --type option.' . "\n", true);
 			return self::CLI_ERROR_COMMAND;
 		}
 
@@ -171,7 +171,6 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 		if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
 			$this->cli_echo(
 				'No update necessary. Your WURFL data is already up to date.'
-				. ' Use --force-update to update anyway.'
 				. "\n"
 			);
 			return true;
@@ -193,7 +192,7 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
 	protected function showStatus($status, TeraWurflUpdater $updater)
 	{
 		if ($status) {
-			$this->cli_echo('Database Update OK' . "\n");
+			$this->cli_echo('Update of database done.' . "\n\n");
 
 			$this->cli_echo(
 				'WURFL Version: '
