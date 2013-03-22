@@ -9,6 +9,9 @@ return array(
 	'tx_contexts_wurfl_context_type_wurfl'
 		=> $extensionClassesPath . 'Context/Type/Wurfl.php',
 
+	'tx_contexts_wurfl_api_wurfl'
+		=> $extensionClassesPath . 'Api/Wurfl.php',
+
 	'tx_contexts_wurfl_api_model_import'
 		=> $extensionClassesPath . 'Api/Model/Import.php',
 
