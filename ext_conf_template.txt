@@ -4,8 +4,8 @@
 # Author: Rico Sonntag <rico.sonntag@netresearch.de>
 # *****************************************************
 
-# cat=basic; type=string; label=URL to download wurfl.xml or compressed version of it (zip)
+# cat=basic/links/; type=string; label=URL to download wurfl.xml or compressed version of it (zip)
 remoteRepository = http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
 
-# cat=basic/dev/1000; type=user[EXT:contexts_wurfl/Classes/Service/ExtManager.php:Tx_Contexts_Wurfl_Service_ExtManager->displayMessage]; label=
-updateMessage=0
+# cat=basic/links/; type=user[EXT:contexts_wurfl/Classes/Service/ExtManager.php:Tx_Contexts_Wurfl_Service_ExtManager->displayMessage]; label=Possible import actions
+configActions=0
