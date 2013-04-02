@@ -282,10 +282,10 @@ HTML;
 <div class="wurfl-module">
 	<h4>Input a USER-AGENT string, e.g.</h4>
 	<ul>
-		<li>SonyEricssonT630/R401 Profile/MIDP-1.0 Configuration/CLDC-1.0 UP.Link/5.1.2.10</li>
-		<li>SAMSUNG-SGH-E700/BSI2.0 UP.Browser/6.1.0.6 (GUI) MMP/1.0 UP.Link/1.1</li>
-		<li>LG/U8120/v1.0</li>
-		<li>Nokia6310i/1.0 (5.51) Profile/MIDP-1.0 Configuration/CLDC-1.0</li>
+		<li>Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46</li>
+		<li>BlackBerry_4</li>
+		<li>NokiaC2-05.1/2.0 (08.45) Profile/MIDP-2.1 Configuration/CLDC-1.1</li>
+		<li>SAMSUNG-GT-S5380B</li>
 	</ul>
 
 	<input type="text" name="inputCalc[agent][input]" size="80" />
