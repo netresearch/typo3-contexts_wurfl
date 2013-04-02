@@ -78,10 +78,10 @@ class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 		// this page may be viewed by the user
 		$pageinfo
 			= t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
-		$access = is_array($pageinfo) ? 1 : 0;
 
-		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
-
+		if (($this->id && is_array($pageinfo))
+			|| ($BE_USER->user['admin'] && !$this->id)
+		) {
 			// Draw the header.
 			$this->doc = t3lib_div::makeInstance('bigDoc');
 
