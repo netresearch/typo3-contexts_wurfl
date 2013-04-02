@@ -217,10 +217,9 @@ HTML;
 
 
 		$dataPath = realpath(
-// 			dirname(__FILE__)
-// 			. '/../'
-// 			.
-			TeraWurflConfig::$DATADIR
+			dirname(__FILE__)
+			. '/../'
+			. TeraWurflConfig::$DATADIR
 		);
 
 		if (!file_exists($dataPath)) {
