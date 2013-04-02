@@ -7,7 +7,9 @@ require_once 'conf.php';
 require_once $BACK_PATH . 'init.php';
 require_once $BACK_PATH . 'template.php';
 
-$LANG->includeLLFile('EXT:contexts_wurfl/Classes/Backend/Module/locallang.xml');
+$LANG->includeLLFile(
+	'EXT:contexts_wurfl/Resources/Private/Language/locallang_mod.xml'
+);
 
 require_once PATH_t3lib . 'class.t3lib_scbase.php';
 
@@ -16,17 +18,17 @@ $BE_USER->modAccess($MCONF, 1);
 // DEFAULT initialization of a module [END]
 
 
-require_once 'class.tx_contextswurfl_module.php';
+require_once 'Module.php';
 
-// Make instance:
-$SOBE = t3lib_div::makeInstance('tx_contextswurfl_module');
-$SOBE->init();
+/* @var $module Tx_Contexts_Wurfl_Backend_Modules_Admin_Module */
+$module = t3lib_div::makeInstance('Tx_Contexts_Wurfl_Backend_Modules_Admin_Module');
+$module->init();
 
 // Include files?
-foreach ($SOBE->include_once as $INC_FILE) {
-	include_once $INC_FILE;
+foreach ($module->include_once as $includeFile) {
+	require_once $includeFile;
 }
 
-$SOBE->main();
-$SOBE->printContent();
+$module->main();
+$module->printContent();
 ?>

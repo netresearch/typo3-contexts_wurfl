@@ -29,7 +29,7 @@ require_once $strApiPath . '/TeraWurfl.php';
  * @subpackage Module
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class tx_contextswurfl_module extends t3lib_SCbase
+class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 {
 	var $pageinfo;
 
@@ -55,10 +55,10 @@ class tx_contextswurfl_module extends t3lib_SCbase
 
 		$this->MOD_MENU = array(
 			'function' => array(
-				'1' => $LANG->getLL('function1'),
-				'2' => $LANG->getLL('function2'),
-				'3' => $LANG->getLL('function3'),
-				'4' => $LANG->getLL('function4'),
+				'1' => $LANG->getLL('module.admin.function1'),
+				'2' => $LANG->getLL('module.admin.function2'),
+				'3' => $LANG->getLL('module.admin.function3'),
+				'4' => $LANG->getLL('module.admin.function4'),
 			)
 		);
 
@@ -128,8 +128,8 @@ JS;
 				-50
 			);
 
-			$this->content .= $this->doc->startPage($LANG->getLL('title'));
-			$this->content .= $this->doc->header($LANG->getLL('title'));
+			$this->content .= $this->doc->startPage($LANG->getLL('module.admin.title'));
+			$this->content .= $this->doc->header($LANG->getLL('module.admin.title'));
 			$this->content .= $this->doc->spacer(5);
 			$this->content .= $this->doc->section(
 				'',
@@ -169,8 +169,8 @@ JS;
 			$this->doc = t3lib_div::makeInstance('mediumDoc');
 			$this->doc->backPath = $BACK_PATH;
 
-			$this->content .= $this->doc->startPage($LANG->getLL('title'));
-			$this->content .= $this->doc->header($LANG->getLL('title'));
+			$this->content .= $this->doc->startPage($LANG->getLL('module.admin.title'));
+			$this->content .= $this->doc->header($LANG->getLL('module.admin.title'));
 			$this->content .= $this->doc->spacer(5);
 			$this->content .= $this->doc->spacer(10);
 		}

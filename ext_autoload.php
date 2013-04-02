@@ -15,6 +15,9 @@ return array(
 	'tx_contexts_wurfl_api_model_import'
 		=> $extensionClassesPath . 'Api/Model/Import.php',
 
+	'tx_contexts_wurfl_backend_modules_admin_module'
+		=> $extensionClassesPath . 'Backend/Modules/Admin/Module.php',
+
 	'tx_contexts_wurfl_service_importtask'
 		=> $extensionClassesPath . 'Service/ImportTask.php',
 

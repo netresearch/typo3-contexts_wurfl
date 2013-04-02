@@ -20,7 +20,7 @@ if (TYPO3_MODE === 'BE') {
 		'tools',
 		'txcontextswurfl',
 		'',
-		t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Backend/Module/'
+		t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Backend/Modules/Admin/'
 	);
 }
 ?>
