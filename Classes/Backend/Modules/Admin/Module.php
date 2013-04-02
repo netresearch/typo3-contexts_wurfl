@@ -31,22 +31,10 @@ require_once $strApiPath . '/TeraWurfl.php';
  */
 class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 {
-	var $pageinfo;
-
-	/**
-	 * Initializes the module
-	 *
-	 * @return void
-	 */
-	public function init()
-	{
-		parent::init();
-	}
-
 	/**
 	 * Adds items to the ->MOD_MENU array. Used for the function menu selector.
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function menuConfig()
 	{
@@ -83,11 +71,14 @@ class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 
 		global $BACK_PATH;
 
+		$adminTitle = $LANG->getLL('module.admin.title');
+
 		// Access check!
 		// The page will show only if there is a valid page and if
 		// this page may be viewed by the user
-		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
-		$access = is_array($this->pageinfo) ? 1 : 0;
+		$pageinfo
+			= t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
+		$access = is_array($pageinfo) ? 1 : 0;
 
 		if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id))	{
 
@@ -100,36 +91,35 @@ class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 			// JavaScript
 			$this->doc->JScode = <<<JS
 <script type="text/javascript">
+//<![CDATA[
 	script_ended = 0;
 	function jumpToUrl(URL)	{
 		document.location = URL;
 	}
+//]]>
 </script>
 JS;
 			$this->doc->postCode = <<<JS
 <script type="text/javascript">
+//<![CDATA[
 	script_ended = 1;
 	if (top.fsMod) {
 		top.fsMod.recentIds["web"] = 0;
 	}
+//]]>
 </script>
 JS;
 
 			$headerSection = $this->doc->getHeader(
-				'pages',
-				$this->pageinfo,
-				$this->pageinfo['_thePath']
+				'pages', $pageinfo, $pageinfo['_thePath']
 			)
 			. '<br />'
 			. $LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.path')
 			. ': '
-			. t3lib_div::fixed_lgd_cs(
-				$this->pageinfo['_thePath'],
-				-50
-			);
+			. t3lib_div::fixed_lgd_cs($pageinfo['_thePath'], -50);
 
-			$this->content .= $this->doc->startPage($LANG->getLL('module.admin.title'));
-			$this->content .= $this->doc->header($LANG->getLL('module.admin.title'));
+			$this->content .= $this->doc->startPage($adminTitle);
+			$this->content .= $this->doc->header($adminTitle);
 			$this->content .= $this->doc->spacer(5);
 			$this->content .= $this->doc->section(
 				'',
@@ -149,28 +139,26 @@ JS;
 			$this->moduleContent();
 
 			// ShortCut
-			if ($BE_USER->mayMakeShortcut())	{
+			if ($BE_USER->mayMakeShortcut()) {
 				$this->content .= $this->doc->spacer(20)
 					. $this->doc->section(
 						'',
 						$this->doc->makeShortcutIcon(
 							'id',
-							implode(',', array_keys($this->MOD_MENU)
-						),
-						$this->MCONF['name']
-					)
-				);
+							implode(',', array_keys($this->MOD_MENU)),
+							$this->MCONF['name']
+						)
+					);
 			}
 
 			$this->content .= $this->doc->spacer(10);
 		} else {
 			// If no access or if ID == zero
-
-			$this->doc = t3lib_div::makeInstance('mediumDoc');
+			$this->doc = t3lib_div::makeInstance('bigDoc');
 			$this->doc->backPath = $BACK_PATH;
 
-			$this->content .= $this->doc->startPage($LANG->getLL('module.admin.title'));
-			$this->content .= $this->doc->header($LANG->getLL('module.admin.title'));
+			$this->content .= $this->doc->startPage($adminTitle);
+			$this->content .= $this->doc->header($adminTitle);
 			$this->content .= $this->doc->spacer(5);
 			$this->content .= $this->doc->spacer(10);
 		}
@@ -179,7 +167,7 @@ JS;
 	/**
 	 * Prints out the module HTML
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function printContent()
 	{
@@ -188,13 +176,41 @@ JS;
 	}
 
 	/**
-	 * Generates the module content
+	 * Generates the module content.
 	 *
-	 * @return	void
+	 * @return void
 	 */
 	public function moduleContent()
 	{
-		$content = <<<HTML
+		$this->handleDataDir();
+
+		switch ((string) $this->MOD_SETTINGS['function']) {
+		case 1:
+			$this->handleQueryDatabase();
+			break;
+
+		case 2:
+			$this->handleUpdateDatabase();
+			break;
+
+		case 3:
+			$this->handleClearCache();
+			break;
+
+		case 4:
+			$this->handleRebuildCache();
+			break;
+		}
+	}
+
+	/**
+	 * Get module head content.
+	 *
+	 * @return string
+	 */
+	protected function getContentHead()
+	{
+		return <<<HTML
 <style type="text/css">
 	.wurfl-module {
 		margin: 10px 0px 20px;
@@ -214,15 +230,20 @@ JS;
 	}
 </style>
 HTML;
+	}
 
-
-		$dataPath = realpath(
-			dirname(__FILE__)
-			. '/../'
-			. TeraWurflConfig::$DATADIR
-		);
+	/**
+	 * Methods handles the checking and creation of the data directory.
+	 *
+	 * @return void
+	 */
+	protected function handleDataDir()
+	{
+		$dataPath = realpath(__DIR__ . '/../' . TeraWurflConfig::$DATADIR);
 
 		if (!file_exists($dataPath)) {
+			$content = $this->getContentHead();
+
 			$content .= <<<HTML
 <div class="wurfl-module">
 	<strong>Create $dataPath?</strong>
@@ -238,7 +259,7 @@ HTML;
 HTML;
 				} else {
 					$content .= <<<HTML
-<div style="margin-left: 10px;">created new directory $dataPath</div>
+<div style="margin-left: 10px;">Created new directory $dataPath</div>
 HTML;
 				}
 			}
@@ -246,14 +267,18 @@ HTML;
 			$this->content .= $this->doc->section(
 				'Create WURFL data directory:', $content, 0, 1
 			);
-
-			return;
 		}
+	}
 
-		switch ((string) $this->MOD_SETTINGS['function']) {
-			// QUERY DATABASE
-			case 1:
-				$content .= <<<HTML
+	/**
+	 * Methods handles the database query to test the WURFL library.
+	 *
+	 * @return void
+	 */
+	protected function handleQueryDatabase()
+	{
+		$content  = $this->getContentHead();
+		$content .= <<<HTML
 <div class="wurfl-module">
 	<h4>Input a USER-AGENT string, e.g.</h4>
 	<ul>
@@ -268,44 +293,50 @@ HTML;
 	<input type="submit" name="cmd[queryDatabase]" value="Submit" />
 </div>
 HTML;
-				if ($_POST['cmd']['queryDatabase'] && trim($_POST['inputCalc']['agent']['input'])) {
+		if ($_POST['cmd']['queryDatabase']
+			&& trim($_POST['inputCalc']['agent']['input'])
+		) {
+			$wurfl = new Tx_Contexts_Wurfl_Api_Wurfl(
+				$_POST['inputCalc']['agent']['input']
+			);
 
-					$wurfl = new Tx_Contexts_Wurfl_Api_Wurfl(
-						$_POST['inputCalc']['agent']['input']
-					);
+			$brandName = $wurfl->capabilities['product_info']['brand_name'];
+			$modelName = $wurfl->capabilities['product_info']['model_name'];
 
-					$brandName = $wurfl->capabilities['product_info']['brand_name'];
-					$modelName = $wurfl->capabilities['product_info']['model_name'];
+			$arrayOutput = t3lib_utility_Debug::viewArray(
+				$wurfl->capabilities
+			);
 
-					$arrayOutput = t3lib_utility_Debug::viewArray(
-						$wurfl->capabilities
-					);
-
-					$content .= <<<HTML
+			$content .= <<<HTML
 <div class="wurfl-module">
 	<h3>Details for the <em>$brandName $modelName</em></h3>
 	<div class="wurfl-module">$arrayOutput</div>
 </div>
 HTML;
-				}
+		}
 
-				$this->content .= $this->doc->section(
-					'Query WURFL for user agent capabilities',
-					$content, false, true
-				);
+		$this->content .= $this->doc->section(
+			'Query WURFL for user agent capabilities',
+			$content, false, true
+		);
+	}
 
-			break;
+	/**
+	 * Methods handles the update of the WURFL database.
+	 *
+	 * @return void
+	 */
+	protected function handleUpdateDatabase()
+	{
+		// Use download url from extension configuration
+		$extConf = unserialize(
+			$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
+		);
 
-			// UPDATE DATABASE
-			case 2:
-				// Use download url from extension configuration
-				$extConf = unserialize(
-					$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
-				);
+		$downloadUrl = $extConf['remoteRepository'];
 
-				$downloadUrl = $extConf['remoteRepository'];
-
-				$content .= <<<HTML
+		$content  = $this->getContentHead();
+		$content .= <<<HTML
 <div class="wurfl-module">
 	<div>Location: $downloadUrl</div>
 	<div><em>The download url can be configured in the "contexts_wurfl" extension configuration.</em></div>
@@ -315,33 +346,38 @@ HTML;
 	<input type="submit" name="cmd[updateDatabase]" value="Update database" />
 </div>
 HTML;
-				if ($_POST['cmd']['updateDatabase']) {
-					$importer = new Tx_Contexts_Wurfl_Api_Model_Import(
-						TeraWurflUpdater::SOURCE_REMOTE
-					);
+		if ($_POST['cmd']['updateDatabase']) {
+			$importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+				TeraWurflUpdater::SOURCE_REMOTE
+			);
 
-					$updateResult = $this->showStatus(
-						$importer->import(true),
-						$importer->getUpdater()
-					);
+			$updateResult = $this->showStatus(
+				$importer->import(true),
+				$importer->getUpdater()
+			);
 
-					$content .= <<<HTML
+			$content .= <<<HTML
 <div class="wurfl-module">
 	$updateResult
 </div>
 HTML;
-				}
+		}
 
-				$this->content .= $this->doc->section(
-					'Update WURFL database from a remote repository',
-					$content, false, true
-				);
+		$this->content .= $this->doc->section(
+			'Update WURFL database from a remote repository',
+			$content, false, true
+		);
+	}
 
-			break;
-
-			// CLEAR CACHE
-			case 3:
-				$content .= <<<HTML
+	/**
+	 * Methods handles the clearing of the database table cache.
+	 *
+	 * @return void
+	 */
+	protected function handleClearCache()
+	{
+		$content  = $this->getContentHead();
+		$content .= <<<HTML
 <div class="wurfl-module">
 	<div style="margin-bottom: 20px;">
 		Clears the cache table.
@@ -350,30 +386,35 @@ HTML;
 </div>
 HTML;
 
-				if ($_POST['cmd']['clearCache']) {
-					$wurfl  = new TeraWurfl();
-					$result = $wurfl->db->createCacheTable();
+		if ($_POST['cmd']['clearCache']) {
+			$wurfl  = new TeraWurfl();
+			$result = $wurfl->db->createCacheTable();
 
-					if ($result) {
-						$content .= <<<HTML
+			if ($result) {
+				$content .= <<<HTML
 <div class="wurfl-module">
 	<div style="margin: 35px 0px 0px;" class="typo3-message message-ok">
 		The cache has been successfully cleared.
 	</div>
 </div>
 HTML;
-					}
-				}
+			}
+		}
 
-				$this->content .= $this->doc->section(
-					'Clear WURFL cache', $content, false, true
-				);
+		$this->content .= $this->doc->section(
+			'Clear WURFL cache', $content, false, true
+		);
+	}
 
-			break;
-
-			// REBUILD CACHE
-			case 4:
-				$content .= <<<HTML
+	/**
+	 * Methods handles the rebuilding of the database table cache.
+	 *
+	 * @return void
+	 */
+	protected function handleRebuildCache()
+	{
+		$content  = $this->getContentHead();
+		$content .= <<<HTML
 <div class="wurfl-module">
 	<div style="margin-bottom: 20px;">
 		Rebuilds the cache table by redetecting the cached devices against the loaded WURFL.
@@ -382,28 +423,24 @@ HTML;
 </div>
 HTML;
 
-				if ($_POST['cmd']['rebuildCache']) {
-					$wurfl  = new TeraWurfl();
-					$result = $wurfl->db->rebuildCacheTable();
+		if ($_POST['cmd']['rebuildCache']) {
+			$wurfl  = new TeraWurfl();
+			$result = $wurfl->db->rebuildCacheTable();
 
-					if ($result) {
-						$content .= <<<HTML
+			if ($result) {
+				$content .= <<<HTML
 <div class="wurfl-module">
 	<div style="margin: 35px 0px 0px;" class="typo3-message message-ok">
 		The cache has been successfully rebuilt.
 	</div>
 </div>
 HTML;
-					}
-				}
-
-				$this->content .= $this->doc->section(
-					'Rebuild WURFL cache', $content, false, true
-				);
-
-			break;
-
+			}
 		}
+
+		$this->content .= $this->doc->section(
+			'Rebuild WURFL cache', $content, false, true
+		);
 	}
 
 	/**
