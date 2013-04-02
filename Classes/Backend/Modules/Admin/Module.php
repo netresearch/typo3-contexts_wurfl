@@ -285,7 +285,6 @@ HTML;
 		<li>Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46</li>
 		<li>BlackBerry_4</li>
 		<li>NokiaC2-05.1/2.0 (08.45) Profile/MIDP-2.1 Configuration/CLDC-1.1</li>
-		<li>SAMSUNG-GT-S5380B</li>
 	</ul>
 
 	<input type="text" name="inputCalc[agent][input]" size="80" />
