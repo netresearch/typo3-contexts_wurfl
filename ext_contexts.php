@@ -12,7 +12,7 @@
 
 defined('TYPO3_MODE') or die('Access denied.');
 
-// Register our context
+// Register context
 Tx_Contexts_Api_Configuration::registerContextType(
     'wurfl',
     'LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_mod.xml:context.title',

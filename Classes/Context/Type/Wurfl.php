@@ -39,6 +39,20 @@ require_once t3lib_extMgm::extPath('contexts') . 'Classes/Context/Abstract.php';
 class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
 {
     /**
+     * Match result (Default TRUE means matches any device).
+     *
+     * @var boolean
+     */
+    protected $match = true;
+
+    /**
+     * WURFL api instance.
+     *
+     * @var Tx_Contexts_Wurfl_Api_Wurfl
+     */
+    protected $wurfl = null;
+
+    /**
      * This function gets called when the current contexts are determined.
      *
      * @param array $arDependencies Array of context objects that are
@@ -48,7 +62,128 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
      */
     public function match(array $arDependencies = array())
     {
-        // TODO
+        $this->match = true;
+        $this->wurfl = new Tx_Contexts_Wurfl_Api_Wurfl();
+
+        $this->matchDeviceType()
+            ->matchDeviceDimension()
+            ->matchProductInfo();
+
+        return (bool) $this->match;
+    }
+
+    /**
+     * Perform match by device type.
+     *
+     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     */
+    protected function matchDeviceType()
+    {
+        // Match mobile device
+        if ($this->match
+            && ((bool) $this->getConfValue('settings.isMobile', false))
+        ) {
+            $this->match &= $this->wurfl->isMobile();
+        }
+
+        // Match wireless device
+        if ($this->match
+            && ((bool) $this->getConfValue('settings.isWireless', false))
+        ) {
+            $this->match &= $this->wurfl->isWireless();
+        }
+
+        // Match tablet
+        if ($this->match
+            && ((bool) $this->getConfValue('settings.isTablet', false))
+        ) {
+            $this->match &= $this->wurfl->isTablet();
+        }
+
+        // Match smart tv
+        if ($this->match
+            && ((bool) $this->getConfValue('settings.isSmartTv', false))
+        ) {
+            $this->match &= $this->wurfl->isSmartTv();
+        }
+
+        // Match phone
+        if ($this->match
+            && ((bool) $this->getConfValue('settings.isPhone', false))
+        ) {
+            $this->match &= $this->wurfl->isPhone();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Perform match by device dimension.
+     *
+     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     */
+    protected function matchDeviceDimension()
+    {
+        $screenWidth = (int) $this->getConfValue(
+            'settings.screenWidth', null, 'sDimension'
+        );
+
+        $screenHeight = (int) $this->getConfValue(
+            'settings.screenHeight', null, 'sDimension'
+        );
+
+        if ($this->match && ($screenWidth > 0)) {
+            $this->match &= ($this->wurfl->getScreenWidth() <= $screenWidth);
+        }
+
+        if ($this->match && ($screenHeight > 0)) {
+            $this->match &= ($this->wurfl->getScreenHeight() <= $screenHeight);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Perform match by product infos.
+     *
+     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     */
+    protected function matchProductInfo()
+    {
+        // Brand name
+        $brandName = $this->getConfValue(
+            'settings.brandName', null, 'sProductInfo'
+        );
+
+        if (strlen($brandName)) {
+            $this->match &= (
+                strcasecmp($brandName, $this->wurfl->getBrandName()) === 0
+            );
+        }
+
+        // Model name
+        $modelName = $this->getConfValue(
+            'settings.modelName', null, 'sProductInfo'
+        );
+
+        if (strlen($modelName)) {
+            $this->match &= (
+                strcasecmp($modelName, $this->wurfl->getModelName()) === 0
+            );
+        }
+
+        // Mobile browser
+        $mobileBrowser = $this->getConfValue(
+            'settings.mobileBrowser', null, 'sProductInfo'
+        );
+
+        if (strlen($mobileBrowser)) {
+            $this->match &= (
+                strcasecmp($mobileBrowser, $this->wurfl->getMobileBrowser()) === 0
+            );
+        }
+
+        return $this;
     }
 }
 ?>

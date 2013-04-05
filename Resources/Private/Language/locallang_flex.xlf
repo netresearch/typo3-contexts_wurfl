@@ -3,6 +3,18 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2013-03-15T12:00:00Z" product-name="contexts_wurfl">
         <header/>
         <body>
+            <!-- Sheets -->
+            <trans-unit id="sheet.type" xml:space="preserve">
+                <source>Device type</source>
+            </trans-unit>
+            <trans-unit id="sheet.dimension" xml:space="preserve">
+                <source>Device dimension</source>
+            </trans-unit>
+            <trans-unit id="sheet.productInfo" xml:space="preserve">
+                <source>Product info</source>
+            </trans-unit>
+
+            <!-- Sheet device type -->
             <trans-unit id="settings.isWireless" xml:space="preserve">
                 <source>Wireless</source>
             </trans-unit>
@@ -33,14 +45,24 @@
             <trans-unit id="settings.isMobile.description" xml:space="preserve">
                 <source>Check this to match any mobile device.</source>
             </trans-unit>
-            <trans-unit id="settings.userAgent" xml:space="preserve">
-                <source>Match the user agent</source>
-            </trans-unit>
+
+            <!-- Sheet device dimension -->
             <trans-unit id="settings.screenWidth" xml:space="preserve">
-                <source>Match the screen width in pixel</source>
+                <source>Screen width: Matches only those devices with a screen width in pixel corresponding to the given maximum value.</source>
             </trans-unit>
             <trans-unit id="settings.screenHeight" xml:space="preserve">
-                <source>Match the screen height in pixel</source>
+                <source>Screen height: Matches only those devices with a screen height in pixel corresponding to the given maximum value.</source>
+            </trans-unit>
+
+            <!-- Sheet product info -->
+            <trans-unit id="settings.brandName" xml:space="preserve">
+                <source>Match the brand name</source>
+            </trans-unit>
+            <trans-unit id="settings.modelName" xml:space="preserve">
+                <source>Match the model name</source>
+            </trans-unit>
+            <trans-unit id="settings.mobileBrowser" xml:space="preserve">
+                <source>Match the mobile browser name</source>
             </trans-unit>
         </body>
     </file>

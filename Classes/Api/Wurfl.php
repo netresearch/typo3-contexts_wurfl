@@ -65,7 +65,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function isWireless()
     {
-        return $this->getDeviceCapability('is_wireless_device');
+        return (bool) $this->getDeviceCapability('is_wireless_device');
     }
 
     /**
@@ -75,7 +75,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function isSmartTv()
     {
-        return $this->getDeviceCapability('is_smarttv');
+        return (bool) $this->getDeviceCapability('is_smarttv');
     }
 
     /**
@@ -85,7 +85,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function isTablet()
     {
-        return $this->getDeviceCapability('is_tablet');
+        return (bool) $this->getDeviceCapability('is_tablet');
     }
 
     /**
@@ -95,7 +95,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function isPhone()
     {
-        return $this->getDeviceCapability('can_assign_phone_number');
+        return (bool) $this->getDeviceCapability('can_assign_phone_number');
     }
 
     /**
@@ -115,7 +115,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function getScreenWidth()
     {
-        return $this->getDeviceCapability('resolution_width');
+        return (int) $this->getDeviceCapability('resolution_width');
     }
 
     /**
@@ -125,7 +125,37 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function getScreenHeight()
     {
-        return $this->getDeviceCapability('resolution_height');
+        return (int) $this->getDeviceCapability('resolution_height');
+    }
+
+    /**
+     * Get the brand name.
+     *
+     * @return string
+     */
+    public function getBrandName()
+    {
+        return $this->getDeviceCapability('brand_name');
+    }
+
+    /**
+     * Get the model name.
+     *
+     * @return string
+     */
+    public function getModelName()
+    {
+        return $this->getDeviceCapability('model_name');
+    }
+
+    /**
+     * Get the name of the mobile browser.
+     *
+     * @return string
+     */
+    public function getMobileBrowser()
+    {
+        return $this->getDeviceCapability('mobile_browser');
     }
 }
 ?>

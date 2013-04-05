@@ -3,123 +3,204 @@
     <meta>
         <langDisable>1</langDisable>
     </meta>
-    <ROOT>
-        <type>array</type>
-        <el>
-            <settings.isMobile>
+    <sheets>
+       <sDEF>
+            <ROOT>
                 <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isMobile</label>
-                    <onChange>reload</onChange>
-                    <config>
-                        <type>check</type>
-                        <items type="array">
-                            <numIndex index="0" type="array">
-                                <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isMobile.description</numIndex>
-                                <numIndex index="1">1</numIndex>
-                            </numIndex>
-                        </items>
-                        <default>0</default>
-                    </config>
+                    <sheetTitle>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:sheet.type</sheetTitle>
                 </TCEforms>
-            </settings.isMobile>
+                <type>array</type>
+                <el>
+                    <settings.isMobile>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isMobile</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isMobile.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isMobile>
+                    <settings.isWireless>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isWireless>
+                    <settings.isTablet>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isTablet>
+                    <settings.isSmartTv>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isSmartTv>
+                    <settings.isPhone>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isPhone</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isPhone.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isPhone>
+                </el>
+            </ROOT>
+        </sDEF>
+        <sDimension>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:sheet.dimension</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
 
-            <settings.isWireless>
+                    <settings.screenWidth>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidth</label>
+                            <config>
+                                <type>input</type>
+                                <size>10</size>
+                                <max>5</max>
+                                <eval>trim,num,int</eval>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidth.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.screenWidth>
+                    <settings.screenHeight>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenHeight</label>
+                            <config>
+                                <type>input</type>
+                                <size>10</size>
+                                <max>5</max>
+                                <eval>trim,num,int</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.screenHeight>
+                </el>
+            </ROOT>
+        </sDimension>
+        <sProductInfo>
+            <ROOT>
                 <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless</label>
-                    <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                    <config>
-                        <type>check</type>
-                        <items type="array">
-                            <numIndex index="0" type="array">
-                                <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless.description</numIndex>
-                                <numIndex index="1">1</numIndex>
-                            </numIndex>
-                        </items>
-                        <default>0</default>
-                    </config>
+                    <sheetTitle>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:sheet.productInfo</sheetTitle>
                 </TCEforms>
-            </settings.isWireless>
-            <settings.isTablet>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet</label>
-                    <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                    <config>
-                        <type>check</type>
-                        <items type="array">
-                            <numIndex index="0" type="array">
-                                <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet.description</numIndex>
-                                <numIndex index="1">1</numIndex>
-                            </numIndex>
-                        </items>
-                        <default>0</default>
-                    </config>
-                </TCEforms>
-            </settings.isTablet>
-            <settings.isSmartTv>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv</label>
-                    <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                    <config>
-                        <type>check</type>
-                        <items type="array">
-                            <numIndex index="0" type="array">
-                                <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv.description</numIndex>
-                                <numIndex index="1">1</numIndex>
-                            </numIndex>
-                        </items>
-                        <default>0</default>
-                    </config>
-                </TCEforms>
-            </settings.isSmartTv>
-            <settings.isPhone>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isPhone</label>
-                    <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                    <config>
-                        <type>check</type>
-                        <items type="array">
-                            <numIndex index="0" type="array">
-                                <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isPhone.description</numIndex>
-                                <numIndex index="1">1</numIndex>
-                            </numIndex>
-                        </items>
-                        <default>0</default>
-                    </config>
-                </TCEforms>
-            </settings.isPhone>
-            <settings.userAgent>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.userAgent</label>
-                    <config>
-                        <type>input</type>
-                        <size>10</size>
-                        <max>5</max>
-                        <eval>trim</eval>
-                    </config>
-                </TCEforms>
-            </settings.userAgent>
-            <settings.screenWidth>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidth</label>
-                    <config>
-                        <type>input</type>
-                        <size>10</size>
-                        <max>5</max>
-                        <eval>trim,num,int</eval>
-                    </config>
-                </TCEforms>
-            </settings.screenWidth>
-            <settings.screenHeight>
-                <TCEforms>
-                    <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenHeight</label>
-                    <config>
-                        <type>input</type>
-                        <size>10</size>
-                        <max>5</max>
-                        <eval>trim,num,int</eval>
-                    </config>
-                </TCEforms>
-            </settings.screenHeight>
-        </el>
-    </ROOT>
+                <type>array</type>
+                <el>
+                    <settings.brandName>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.brandName</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getBrandNames</itemsProcFunc>
+                                <size>1</size>
+                                <default></default>
+                                <minitems>0</minitems>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </settings.brandName>
+                    <settings.modelName>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.modelName</label>
+                            <displayCond>FIELD:settings.brandName:REQ:true</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getModelNames</itemsProcFunc>
+                                <size>1</size>
+                                <default></default>
+                                <minitems>0</minitems>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </settings.modelName>
+                    <settings.mobileBrowser>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.mobileBrowser</label>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getMobileBrowsers</itemsProcFunc>
+                                <size>1</size>
+                                <default></default>
+                                <minitems>0</minitems>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </settings.mobileBrowser>
+                </el>
+            </ROOT>
+        </sProductInfo>
+    </sheets>
 </T3DataStructure>

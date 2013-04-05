@@ -13,14 +13,14 @@
 defined('TYPO3_MODE') or die('Access denied.');
 
 if (TYPO3_MODE === 'BE') {
-	// All other modes did load it already
-	require_once t3lib_extMgm::extPath($_EXTKEY) . 'ext_contexts.php';
+    // All other modes did load it already
+    require_once t3lib_extMgm::extPath($_EXTKEY) . 'ext_contexts.php';
 
-	t3lib_extMgm::addModule(
-		'tools',
-		'txcontextswurfl',
-		'',
-		t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Backend/Modules/Admin/'
-	);
+    t3lib_extMgm::addModule(
+        'tools',
+        'txcontextswurfl',
+        '',
+        t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Backend/Modules/Admin/'
+    );
 }
 ?>
