@@ -38,17 +38,17 @@ require_once t3lib_extMgm::extPath('contexts') . 'Classes/Context/Abstract.php';
  */
 class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
 {
-	/**
-	 * This function gets called when the current contexts are determined.
-	 *
-	 * @param array $arDependencies Array of context objects that are
-	 *                              dependencies of this context
-	 *
-	 * @return boolean TRUE when your context matches, FALSE if not
-	 */
-	public function match(array $arDependencies)
-	{
-		// TODO
-	}
+    /**
+     * This function gets called when the current contexts are determined.
+     *
+     * @param array $arDependencies Array of context objects that are
+     *                              dependencies of this context
+     *
+     * @return boolean TRUE when your context matches, FALSE if not
+     */
+    public function match(array $arDependencies = array())
+    {
+        // TODO
+    }
 }
 ?>

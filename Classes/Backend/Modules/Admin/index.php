@@ -8,7 +8,7 @@ require_once $BACK_PATH . 'init.php';
 require_once $BACK_PATH . 'template.php';
 
 $LANG->includeLLFile(
-	'EXT:contexts_wurfl/Resources/Private/Language/locallang_mod.xml'
+    'EXT:contexts_wurfl/Resources/Private/Language/locallang_mod.xml'
 );
 
 require_once PATH_t3lib . 'class.t3lib_scbase.php';
@@ -26,7 +26,7 @@ $module->init();
 
 // Include files?
 foreach ($module->include_once as $includeFile) {
-	require_once $includeFile;
+    require_once $includeFile;
 }
 
 $module->main();

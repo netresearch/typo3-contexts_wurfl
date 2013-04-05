@@ -28,7 +28,7 @@ declare(encoding = 'UTF-8');
  * Includes
  */
 $strApiPath = realpath(
-	PATH_typo3conf . 'ext/contexts_wurfl/Library/wurfl-dbapi-1.4.4.0/'
+    PATH_typo3conf . 'ext/contexts_wurfl/Library/wurfl-dbapi-1.4.4.0/'
 );
 
 require_once $strApiPath . '/TeraWurfl.php';
@@ -44,88 +44,88 @@ require_once $strApiPath . '/TeraWurfl.php';
  */
 class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param string $userAgent  HTTP user agent string
-	 * @param string $httpAccept HTTP accept header
-	 */
-	public function __construct($userAgent = null, $httpAccept = null)
-	{
-		parent::__construct();
+    /**
+     * Constructor.
+     *
+     * @param string $userAgent  HTTP user agent string
+     * @param string $httpAccept HTTP accept header
+     */
+    public function __construct($userAgent = null, $httpAccept = null)
+    {
+        parent::__construct();
 
-		// Get device capabilities
-		$this->getDeviceCapabilitiesFromAgent($userAgent, $httpAccept);
-	}
+        // Get device capabilities
+        $this->getDeviceCapabilitiesFromAgent($userAgent, $httpAccept);
+    }
 
-	/**
-	 * Returns TRUE if the device is a wireless one.
-	 *
-	 * @return boolean
-	 */
-	public function isWireless()
-	{
-		return $this->getDeviceCapability('is_wireless_device');
-	}
+    /**
+     * Returns TRUE if the device is a wireless one.
+     *
+     * @return boolean
+     */
+    public function isWireless()
+    {
+        return $this->getDeviceCapability('is_wireless_device');
+    }
 
-	/**
-	 * Returns TRUE if the device is a smart tv.
-	 *
-	 * @return boolean
-	 */
-	public function isSmartTv()
-	{
-		return $this->getDeviceCapability('is_smarttv');
-	}
+    /**
+     * Returns TRUE if the device is a smart tv.
+     *
+     * @return boolean
+     */
+    public function isSmartTv()
+    {
+        return $this->getDeviceCapability('is_smarttv');
+    }
 
-	/**
-	 * Returns TRUE if the device is a tablet.
-	 *
-	 * @return boolean
-	 */
-	public function isTablet()
-	{
-		return $this->getDeviceCapability('is_tablet');
-	}
+    /**
+     * Returns TRUE if the device is a tablet.
+     *
+     * @return boolean
+     */
+    public function isTablet()
+    {
+        return $this->getDeviceCapability('is_tablet');
+    }
 
-	/**
-	 * Returns TRUE if the device is a phone.
-	 *
-	 * @return boolean
-	 */
-	public function isPhone()
-	{
-		return $this->getDeviceCapability('can_assign_phone_number');
-	}
+    /**
+     * Returns TRUE if the device is a phone.
+     *
+     * @return boolean
+     */
+    public function isPhone()
+    {
+        return $this->getDeviceCapability('can_assign_phone_number');
+    }
 
-	/**
-	 * Returns TRUE if the device is a mobile device.
-	 *
-	 * @return boolean
-	 */
-	public function isMobile()
-	{
-		return ($this->isWireLess() || $this->isTablet());
-	}
+    /**
+     * Returns TRUE if the device is a mobile device.
+     *
+     * @return boolean
+     */
+    public function isMobile()
+    {
+        return ($this->isWireLess() || $this->isTablet());
+    }
 
-	/**
-	 * Get the screen width in pixel.
-	 *
-	 * @return integer
-	 */
-	public function getScreenWidth()
-	{
-		return $this->getDeviceCapability('resolution_width');
-	}
+    /**
+     * Get the screen width in pixel.
+     *
+     * @return integer
+     */
+    public function getScreenWidth()
+    {
+        return $this->getDeviceCapability('resolution_width');
+    }
 
-	/**
-	 * Get the screen height in pixel.
-	 *
-	 * @return integer
-	 */
-	public function getScreenHeight()
-	{
-		return $this->getDeviceCapability('resolution_height');
-	}
+    /**
+     * Get the screen height in pixel.
+     *
+     * @return integer
+     */
+    public function getScreenHeight()
+    {
+        return $this->getDeviceCapability('resolution_height');
+    }
 }
 ?>
