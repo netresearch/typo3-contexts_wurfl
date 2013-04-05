@@ -146,17 +146,19 @@
                             <onChange>reload</onChange>
                             <config>
                                 <type>select</type>
+<!--
                                 <items type="array">
                                     <numIndex index="0" type="array">
                                         <numIndex index="0"></numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                 </items>
+-->
                                 <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getBrandNames</itemsProcFunc>
-                                <size>1</size>
+                                <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>
-                                <maxitems>1</maxitems>
+                                <maxitems>100</maxitems>
                             </config>
                         </TCEforms>
                     </settings.brandName>
@@ -166,17 +168,19 @@
                             <displayCond>FIELD:settings.brandName:REQ:true</displayCond>
                             <config>
                                 <type>select</type>
+<!--
                                 <items type="array">
                                     <numIndex index="0" type="array">
                                         <numIndex index="0"></numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                 </items>
+-->
                                 <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getModelNames</itemsProcFunc>
-                                <size>1</size>
+                                <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>
-                                <maxitems>1</maxitems>
+                                <maxitems>100</maxitems>
                             </config>
                         </TCEforms>
                     </settings.modelName>
@@ -185,17 +189,19 @@
                             <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.mobileBrowser</label>
                             <config>
                                 <type>select</type>
+<!--
                                 <items type="array">
                                     <numIndex index="0" type="array">
                                         <numIndex index="0"></numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                 </items>
+-->
                                 <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getMobileBrowsers</itemsProcFunc>
-                                <size>1</size>
+                                <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>
-                                <maxitems>1</maxitems>
+                                <maxitems>100</maxitems>
                             </config>
                         </TCEforms>
                     </settings.mobileBrowser>

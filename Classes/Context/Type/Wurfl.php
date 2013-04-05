@@ -150,37 +150,58 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
      */
     protected function matchProductInfo()
     {
-        // Brand name
-        $brandName = $this->getConfValue(
+        // Brand names
+        $brandNames = $this->getConfValue(
             'settings.brandName', null, 'sProductInfo'
         );
 
-        if (strlen($brandName)) {
-            $this->match &= (
-                strcasecmp($brandName, $this->wurfl->getBrandName()) === 0
-            );
+        if (strlen($brandNames)) {
+            $brandNames = explode(',', $brandNames);
+            $brandMatch = false;
+
+            foreach ($brandNames as $brandName) {
+                $brandMatch |= (
+                    strcasecmp($brandName, $this->wurfl->getBrandName()) === 0
+                );
+            }
+
+            $this->match &= $brandMatch;
         }
 
-        // Model name
-        $modelName = $this->getConfValue(
+        // Model names
+        $modelNames = $this->getConfValue(
             'settings.modelName', null, 'sProductInfo'
         );
 
-        if (strlen($modelName)) {
-            $this->match &= (
-                strcasecmp($modelName, $this->wurfl->getModelName()) === 0
-            );
+        if (strlen($modelNames)) {
+            $modelNames = explode(',', $modelNames);
+            $modelMatch = false;
+
+            foreach ($modelNames as $modelName) {
+                $modelMatch |= (
+                    strcasecmp($modelName, $this->wurfl->getModelName()) === 0
+                );
+            }
+
+            $this->match &= $modelMatch;
         }
 
-        // Mobile browser
-        $mobileBrowser = $this->getConfValue(
+        // Mobile browsers
+        $mobileBrowsers = $this->getConfValue(
             'settings.mobileBrowser', null, 'sProductInfo'
         );
 
-        if (strlen($mobileBrowser)) {
-            $this->match &= (
-                strcasecmp($mobileBrowser, $this->wurfl->getMobileBrowser()) === 0
-            );
+        if (strlen($mobileBrowsers)) {
+            $mobileBrowsers = explode(',', $mobileBrowsers);
+            $mobileMatch    = false;
+
+            foreach ($mobileBrowsers as $mobileBrowser) {
+                $mobileMatch |= (
+                    strcasecmp($mobileBrowser, $this->wurfl->getMobileBrowser()) === 0
+                );
+            }
+
+            $this->match &= $mobileMatch;
         }
 
         return $this;

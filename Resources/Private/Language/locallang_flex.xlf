@@ -56,13 +56,13 @@
 
             <!-- Sheet product info -->
             <trans-unit id="settings.brandName" xml:space="preserve">
-                <source>Match the brand name</source>
+                <source>Match one of the selected brand names</source>
             </trans-unit>
             <trans-unit id="settings.modelName" xml:space="preserve">
-                <source>Match the model name</source>
+                <source>Match one of the selected model names</source>
             </trans-unit>
             <trans-unit id="settings.mobileBrowser" xml:space="preserve">
-                <source>Match the mobile browser name</source>
+                <source>Match one of the selected mobile browsers</source>
             </trans-unit>
         </body>
     </file>

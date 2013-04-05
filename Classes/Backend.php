@@ -45,12 +45,12 @@ class Tx_Contexts_Wurfl_Backend
     /**
      * Get all brand names.
      *
-     * @param array          &$params      Additional parameters
-     * @param t3lib_TCEforms $parentObject Parent object instance
+     * @param array  &$params      Additional parameters
+     * @param object $parentObject Parent object instance
      *
      * @return void
      */
-    public function getBrandNames(array &$params, t3lib_TCEforms $parentObject)
+    public function getBrandNames(array &$params, $parentObject)
     {
         $wurfl      = new TeraWurfl();
         $brandNames = array();
@@ -74,70 +74,81 @@ class Tx_Contexts_Wurfl_Backend
     /**
      * Get all model names belonging to a selected brand.
      *
-     * @param array          &$params      Additional parameters
-     * @param t3lib_TCEforms $parentObject Parent object instance
+     * @param array  &$params      Additional parameters
+     * @param object $parentObject Parent object instance
      *
      * @return void
      */
-    public function getModelNames(array &$params, t3lib_TCEforms $parentObject)
+    public function getModelNames(array &$params, $parentObject)
     {
         $flexFormConfig = t3lib_div::xml2array($params['row']['type_conf']);
-        $brandName      = '';
+        $brandNames     = '';
 
         if (is_array($flexFormConfig)
             && !empty($flexFormConfig['data']['sProductInfo']['lDEF']['settings.brandName']['vDEF'])
         ) {
-            $brandName = $flexFormConfig['data']['sProductInfo']
+            $brandNames = $flexFormConfig['data']['sProductInfo']
                 ['lDEF']['settings.brandName']['vDEF'];
         }
+
+        $brandNames = explode(',', $brandNames);
 
         /* @var $TYPO3_DB t3lib_db */
         global $TYPO3_DB;
 
-        $devices = $TYPO3_DB->exec_SELECTgetRows(
-            'capabilities',
-            TeraWurflConfig::$TABLE_PREFIX . '_' . $brandName,
-            '1 = 1'
-        );
+        foreach ($brandNames as $brandName) {
+            $brandName  = reset(explode('|', $brandName));
+            $modelNames = array();
 
-        $modelNames = array();
-
-        foreach ($devices as $device) {
-            $capabilities = @unserialize($device['capabilities']);
-
-            // Add model name if it exists and not already in the list
-            if (($capabilities !== false)
-                && isset($capabilities['product_info'])
-                && isset($capabilities['product_info']['model_name'])
-                && strlen($capabilities['product_info']['model_name'])
-                && !in_array(
-                    $capabilities['product_info']['model_name'],
-                    $modelNames
-                )
-            ) {
-                $modelNames[] = $capabilities['product_info']['model_name'];
-            }
-        }
-
-        natcasesort($modelNames);
-
-        foreach ($modelNames as $modelName) {
             $params['items'][] = array(
-                $modelName,
-                $modelName
+                $brandName,
+                '--div--',
             );
+
+            // Get all devices of the brand
+            $devices = $TYPO3_DB->exec_SELECTgetRows(
+                'capabilities',
+                TeraWurflConfig::$TABLE_PREFIX . '_' . $brandName,
+                '1 = 1'
+            );
+
+            foreach ($devices as $device) {
+                $capabilities = unserialize($device['capabilities']);
+
+                // Add model name if it exists and not already in the list
+                if (($capabilities !== false)
+                    && isset($capabilities['product_info'])
+                    && isset($capabilities['product_info']['model_name'])
+                    && strlen($capabilities['product_info']['model_name'])
+                    && !in_array(
+                        $capabilities['product_info']['model_name'],
+                        $modelNames
+                    )
+                ) {
+                    $modelNames[] = $capabilities['product_info']['model_name'];
+                }
+            }
+
+            natcasesort($modelNames);
+
+            foreach ($modelNames as $modelName) {
+                $params['items'][] = array(
+                    $modelName,
+                    $modelName,
+                );
+            }
         }
     }
 
     /**
      * Get all mobile browsers.
      *
-     * @param array          &$params      Additional parameters
-     * @param t3lib_TCEforms $parentObject Parent object instance
+     * @param array  &$params      Additional parameters
+     * @param object $parentObject Parent object instance
      *
      * @return void
      */
-    public function getMobileBrowsers(array &$params, t3lib_TCEforms $parentObject)
+    public function getMobileBrowsers(array &$params, $parentObject)
     {
         /* @var $TYPO3_DB t3lib_db */
         global $TYPO3_DB;
@@ -154,7 +165,7 @@ class Tx_Contexts_Wurfl_Backend
             );
 
             foreach ($devices as $device) {
-                $capabilities = @unserialize($device['capabilities']);
+                $capabilities = unserialize($device['capabilities']);
 
                 // Add mobile browser name if it exists and not already in the list
                 if (($capabilities !== false)
