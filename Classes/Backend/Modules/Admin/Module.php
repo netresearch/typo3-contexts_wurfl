@@ -182,7 +182,9 @@ JS;
 	 */
 	public function moduleContent()
 	{
-		$this->handleDataDir();
+		if (!$this->handleDataDir()) {
+			return;
+		}
 
 		switch ((string) $this->MOD_SETTINGS['function']) {
 		case 1:
@@ -234,32 +236,38 @@ HTML;
 
 	/**
 	 * Methods handles the checking and creation of the data directory.
+	 * Returns TRUE if the temporary directory exists, FALSE otherwise.
 	 *
-	 * @return void
+	 * @return boolean
 	 */
 	protected function handleDataDir()
 	{
-		$dataPath = realpath(__DIR__ . '/../' . TeraWurflConfig::$DATADIR);
+		$dataPath = PATH_site . 'typo3temp/contexts_wurfl/';
 
 		if (!file_exists($dataPath)) {
 			$content = $this->getContentHead();
 
 			$content .= <<<HTML
 <div class="wurfl-module">
-	<strong>Create $dataPath?</strong>
-	<input type="submit" name="cmd[createDATADIR]" value="Create DATADIR" />
+	<div style="margin-bottom: 20px;">
+		Create required data directory "$dataPath".
+	</div>
+	<input type="submit" name="cmd[createDATADIR]" value="Create data directory" />
 </div>
 HTML;
 
 			if ($_POST['cmd']['createDATADIR']) {
 				if (!mkdir($dataPath)) {
 					$content .= <<<HTML
-<h2 style="color: red;">ERROR:</h2>
-<div style="margin-left: 10px;">Cannot create directory $dataPath</div>
+<div style="margin: 20px 0px;" class="typo3-message message-error">
+	<strong>ERROR: </strong>Unable to create directory "$dataPath".
+</div>
 HTML;
 				} else {
 					$content .= <<<HTML
-<div style="margin-left: 10px;">Created new directory $dataPath</div>
+<div style="margin: 20px 0px;" class="typo3-message message-ok">
+	Successfully created new directory "$dataPath".
+</div>
 HTML;
 				}
 			}
@@ -267,7 +275,11 @@ HTML;
 			$this->content .= $this->doc->section(
 				'Create WURFL data directory:', $content, 0, 1
 			);
+
+			return false;
 		}
+
+		return true;
 	}
 
 	/**
