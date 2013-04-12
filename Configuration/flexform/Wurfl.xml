@@ -102,34 +102,46 @@
                 <type>array</type>
                 <el>
 
-                    <settings.screenWidth>
+                    <settings.screenWidthMin>
                         <TCEforms>
-                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidth</label>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidthMin</label>
                             <config>
                                 <type>input</type>
                                 <size>10</size>
-                                <max>5</max>
                                 <eval>trim,num,int</eval>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidth.description</numIndex>
-                                        <numIndex index="1">1</numIndex>
-                                    </numIndex>
-                                </items>
                             </config>
                         </TCEforms>
-                    </settings.screenWidth>
-                    <settings.screenHeight>
+                    </settings.screenWidthMin>
+                    <settings.screenWidthMax>
                         <TCEforms>
-                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenHeight</label>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenWidthMax</label>
                             <config>
                                 <type>input</type>
                                 <size>10</size>
-                                <max>5</max>
                                 <eval>trim,num,int</eval>
                             </config>
                         </TCEforms>
-                    </settings.screenHeight>
+                    </settings.screenWidthMax>
+                    <settings.screenHeightMin>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenHeightMin</label>
+                            <config>
+                                <type>input</type>
+                                <size>10</size>
+                                <eval>trim,num,int</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.screenHeightMin>
+                    <settings.screenHeightMax>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.screenHeightMax</label>
+                            <config>
+                                <type>input</type>
+                                <size>10</size>
+                                <eval>trim,num,int</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.screenHeightMax>
                 </el>
             </ROOT>
         </sDimension>

@@ -47,11 +47,17 @@
             </trans-unit>
 
             <!-- Sheet device dimension -->
-            <trans-unit id="settings.screenWidth" xml:space="preserve">
-                <source>Screen width: Matches only those devices with a screen width in pixel corresponding to the given maximum value.</source>
+            <trans-unit id="settings.screenWidthMin">
+                <source>Minimal screen width (pixels)</source>
             </trans-unit>
-            <trans-unit id="settings.screenHeight" xml:space="preserve">
-                <source>Screen height: Matches only those devices with a screen height in pixel corresponding to the given maximum value.</source>
+            <trans-unit id="settings.screenWidthMax">
+                <source>Maximum screen width (pixels)</source>
+            </trans-unit>
+            <trans-unit id="settings.screenHeightMin">
+                <source>Minimal screen height (pixels)</source>
+            </trans-unit>
+            <trans-unit id="settings.screenHeightMax">
+                <source>Maximum screen height (pixels)</source>
             </trans-unit>
 
             <!-- Sheet product info -->

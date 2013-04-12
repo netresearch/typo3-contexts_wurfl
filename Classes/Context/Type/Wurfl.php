@@ -124,20 +124,38 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
      */
     protected function matchDeviceDimension()
     {
-        $screenWidth = (int) $this->getConfValue(
-            'settings.screenWidth', null, 'sDimension'
+        $screenWidthMin = (int) $this->getConfValue(
+            'settings.screenWidthMin', null, 'sDimension'
+        );
+        $screenWidthMax = (int) $this->getConfValue(
+            'settings.screenWidthMax', null, 'sDimension'
         );
 
-        $screenHeight = (int) $this->getConfValue(
-            'settings.screenHeight', null, 'sDimension'
+        $screenHeightMin = (int) $this->getConfValue(
+            'settings.screenHeightMin', null, 'sDimension'
+        );
+        $screenHeightMax = (int) $this->getConfValue(
+            'settings.screenHeightMax', null, 'sDimension'
         );
 
-        if ($this->match && ($screenWidth > 0)) {
-            $this->match &= ($this->wurfl->getScreenWidth() <= $screenWidth);
+        if ($this->match) {
+            $width = $this->wurfl->getScreenWidth();
+            if ($screenWidthMin > 0) {
+                $this->match &= $width >= $screenWidthMin;
+            }
+            if ($screenWidthMax > 0) {
+                $this->match &= $width <= $screenWidthMax;
+            }
         }
 
-        if ($this->match && ($screenHeight > 0)) {
-            $this->match &= ($this->wurfl->getScreenHeight() <= $screenHeight);
+        if ($this->match) {
+            $height = $this->wurfl->getScreenHeight();
+            if ($screenHeightMin > 0) {
+                $this->match &= $height >= $screenHeightMin;
+            }
+            if ($screenHeightMax > 0) {
+                $this->match &= $height <= $screenHeightMax;
+            }
         }
 
         return $this;
