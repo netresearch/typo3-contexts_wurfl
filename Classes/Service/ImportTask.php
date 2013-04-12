@@ -33,7 +33,7 @@ class Tx_Contexts_Wurfl_Service_ImportTask extends tx_scheduler_Task
             TeraWurflUpdater::SOURCE_REMOTE
         );
 
-        $result = $importer->import(true);
+        $result = $importer->import();
 
         // No update available, WURFL data is already up to date
         if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
