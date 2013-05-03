@@ -13,6 +13,9 @@
             <trans-unit id="sheet.productInfo" xml:space="preserve">
                 <source>Product info</source>
             </trans-unit>
+            <trans-unit id="sheet.generalOptions" xml:space="preserve">
+                <source>General options</source>
+            </trans-unit>
 
             <!-- Sheet device type -->
             <trans-unit id="settings.isWireless" xml:space="preserve">

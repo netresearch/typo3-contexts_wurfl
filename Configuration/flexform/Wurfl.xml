@@ -4,7 +4,7 @@
         <langDisable>1</langDisable>
     </meta>
     <sheets>
-       <sDEF>
+        <sDEF>
             <ROOT>
                 <TCEforms>
                     <sheetTitle>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:sheet.type</sheetTitle>
@@ -220,5 +220,24 @@
                 </el>
             </ROOT>
         </sProductInfo>
+        <sGeneralOptions>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:sheet.generalOptions</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <field_invert>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts/Resources/Private/Language/flexform.xml:field_invert</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </field_invert>
+                </el>
+            </ROOT>
+        </sGeneralOptions>
     </sheets>
 </T3DataStructure>
