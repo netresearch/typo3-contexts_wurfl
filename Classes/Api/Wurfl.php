@@ -54,8 +54,13 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
     {
         parent::__construct();
 
-        // Get device capabilities
-        $this->getDeviceCapabilitiesFromAgent($userAgent, $httpAccept);
+        try {
+            // Get device capabilities
+            $this->getDeviceCapabilitiesFromAgent($userAgent, $httpAccept);
+        } catch (Exception $e) {
+            //no nothing here.
+            // we show errors in the context wurfl configuration
+        }
     }
 
     /**

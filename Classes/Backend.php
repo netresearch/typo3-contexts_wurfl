@@ -191,5 +191,34 @@ class Tx_Contexts_Wurfl_Backend
             );
         }
     }
+
+    /**
+     * Check if the extension has been setup properly
+     *
+     * @param array  $arFieldInfo Information about the current input field
+     * @param object $tceforms    Form rendering library object
+     *
+     * @return string HTML code with warning when extension is not setup
+     */
+    public function setupCheck($arFieldInfo, t3lib_tceforms $tceforms)
+    {
+        try {
+            $wurfl = new TeraWurfl();
+            $wurfl->getDeviceCapabilitiesFromAgent(null, null);
+        } catch (Exception $e) {
+            $o_flashMessage = t3lib_div::makeInstance(
+                't3lib_FlashMessage',
+                'It seems you did not configure the extension properly.<br/>'
+                . 'Create a "WURFL import" scheduler task and run it once.<br/>'
+                . '<br/>'
+                . htmlspecialchars($e->getMessage()),
+                'WURFL configuration',
+                t3lib_FlashMessage::ERROR
+            );
+            t3lib_FlashMessageQueue::addMessage($o_flashMessage);
+        }
+
+        return null;
+    }
 }
 ?>

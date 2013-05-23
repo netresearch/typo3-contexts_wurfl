@@ -91,6 +91,15 @@
                             </config>
                         </TCEforms>
                     </settings.isPhone>
+                    <settings.setupCheck>
+                        <TCEforms>
+                            <label></label>
+                            <config>
+                                <form_type>user</form_type>
+                                <userFunc>Tx_Contexts_Wurfl_Backend-&gt;setupCheck</userFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.setupCheck>
                 </el>
             </ROOT>
         </sDEF>
