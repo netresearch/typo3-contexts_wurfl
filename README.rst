@@ -1,6 +1,5 @@
-*********************
 TYPO3 Contexts: WURFL
-*********************
+#####################
 Provides context filters based on user devices.
 Allows you to show pages and content elements specifically
 for mobile devices, tablet or for different screen sizes.
@@ -14,9 +13,8 @@ It has the following device detection features:
 - Browser used
 
 
-============
 Installation
-============
+************
 
 Dependencies
 ============
@@ -26,6 +24,12 @@ Dependencies
 Setup
 =====
 - Activate extension
+- Optional: Update the URL to the compressed WURFL archive
+  - Currently used: http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
+- Go to "Admin tools" => "WURFL" and perform initial setup
+
+Alternative way
+---------------
 - Create backend user ``_cli_contexts_wurfl`` (for command line access)
 - Import WURFL database::
 
@@ -36,9 +40,8 @@ Setup
   only a couple of times a year.
 
 
-=====
 Usage
-=====
+*****
 
 Context creation
 ================
@@ -54,9 +57,8 @@ You now have a context that's active whenever a visitor views
 your page on a tablet.
 
 
-=====
 WURFL
-=====
+*****
 WURFL, the Wireless Universal Resource FiLe, is a Device Description Repository
 (DDR), i.e. a software component that maps HTTP Request headers to the profile
 of the HTTP client (Desktop, Mobile Device, Tablet, etc.) that issued the
@@ -64,20 +66,31 @@ request.
 
 See http://wurfl.sourceforge.net/ for more information.
 
+Admintool
+=========
+The WURFL contexts extension comes with an additional backend module located
+at ``Admin tools`` => ``WURFL``.
+
+The module allows you to easily update your existing WURFL database, clearing
+and rebuilding the WURFL cache and to perform test queries against the database.
+
+
 Remote database update
 ======================
-You may use a scheduler task to update the WURFL database, or use
-the CLI to fetch new data from the WURLF website.
+You may either use the WURFL admintool or a scheduler task to update the WURFL
+database. Alternatively you could also use the CLI to fetch new data from the WURLF
+website.
+
 See the setup section.
 
 
 Local database update
-======================
+=====================
 1. Download a local version of the WURFL repository file.
 2. Store it in ``/typo3temp/contexts_wurfl/wurfl.xml``.
 3. Call the ``contexts_wurl`` CLI task then::
 
-  $ php ./typo3/cli_dispatch.phpsh contexts_wurfl import --type=local
+   $ php ./typo3/cli_dispatch.phpsh contexts_wurfl import --type=local
 
 
 API update
