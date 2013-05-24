@@ -53,18 +53,6 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     protected $wurfl = null;
 
     /**
-     * Constructor - calling the parent constructor and setting invertConfSheet
-     *
-     * @param array $arRow Database context row
-     */
-    public function __construct($arRow = array())
-    {
-        parent::__construct($arRow);
-
-        $this->invertConfSheet = 'sGeneralOptions';
-    }
-
-        /**
      * This function gets called when the current contexts are determined.
      *
      * @param array $arDependencies Array of context objects that are
