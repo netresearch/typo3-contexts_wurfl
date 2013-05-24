@@ -1,5 +1,6 @@
+*********************
 TYPO3 Contexts: WURFL
-#####################
+*********************
 Provides context filters based on user devices.
 Allows you to show pages and content elements specifically
 for mobile devices, tablet or for different screen sizes.
@@ -13,8 +14,9 @@ It has the following device detection features:
 - Browser used
 
 
+============
 Installation
-************
+============
 
 Dependencies
 ============
@@ -28,6 +30,7 @@ Setup
   - Currently used: http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
 - Go to "Admin tools" => "WURFL" and perform initial setup
 
+---------------
 Alternative way
 ---------------
 - Create backend user ``_cli_contexts_wurfl`` (for command line access)
@@ -40,8 +43,9 @@ Alternative way
   only a couple of times a year.
 
 
+=====
 Usage
-*****
+=====
 
 Context creation
 ================
@@ -57,8 +61,9 @@ You now have a context that's active whenever a visitor views
 your page on a tablet.
 
 
+=====
 WURFL
-*****
+=====
 WURFL, the Wireless Universal Resource FiLe, is a Device Description Repository
 (DDR), i.e. a software component that maps HTTP Request headers to the profile
 of the HTTP client (Desktop, Mobile Device, Tablet, etc.) that issued the
