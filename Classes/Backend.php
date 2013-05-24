@@ -209,7 +209,7 @@ class Tx_Contexts_Wurfl_Backend
             $o_flashMessage = t3lib_div::makeInstance(
                 't3lib_FlashMessage',
                 'It seems you did not configure the extension properly.<br/>'
-                . 'Create a "WURFL import" scheduler task and run it once.<br/>'
+                . 'Use the WURFL admintool to do an initial import.<br/>'
                 . '<br/>'
                 . htmlspecialchars($e->getMessage()),
                 'WURFL configuration',

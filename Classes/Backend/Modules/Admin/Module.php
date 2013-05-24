@@ -186,6 +186,10 @@ JS;
             return;
         }
 
+        if (!$this->checkDatabase()) {
+            return;
+        }
+
         switch ((string) $this->MOD_SETTINGS['function']) {
         case 1:
             $this->handleQueryDatabase();
@@ -273,13 +277,89 @@ HTML;
             }
 
             $this->content .= $this->doc->section(
-                'Create WURFL data directory:', $content, 0, 1
+                'Create WURFL data directory:', $content, false, true
             );
 
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Methods checks the database and performs an initial setup of it.
+     *
+     * @return boolean
+     */
+    protected function checkDatabase()
+    {
+        try {
+            $wurfl = new TeraWurfl();
+            $wurfl->getDeviceCapabilitiesFromAgent(null, null);
+
+            return true;
+        } catch (Exception $e) {
+            $content = $this->getContentHead();
+
+            $content .= <<<HTML
+<div style="margin: 20px 0px;" class="typo3-message message-error">
+    <strong>ERROR: </strong>No valid WURFL database found. An initial import has do be done.
+</div>
+HTML;
+
+            // Use download url from extension configuration
+            $extConf = unserialize(
+                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
+            );
+
+            $downloadUrl = $extConf['remoteRepository'];
+
+            $content .= <<<HTML
+<div class="wurfl-module">
+    <div>Location: $downloadUrl</div>
+    <div><em>The download url can be configured in the "contexts_wurfl" extension configuration.</em></div>
+    <div style="margin: 20px 0px;" class="typo3-message message-ok">
+        <strong>INFO: </strong>Be patient the initial import may take some time.
+    </div>
+    <input type="submit" name="cmd[updateDatabase]" value="Perform initial import" />
+</div>
+HTML;
+
+            $content .= $this->performDatabaseUpdate();
+
+            $this->content .= $this->doc->section(
+                'Initial WURFL setup:', $content, false, true
+            );
+        }
+
+        return false;
+    }
+
+    /**
+     * Methods checks the post command and starts an database update.
+     *
+     * @return string
+     */
+    protected function performDatabaseUpdate()
+    {
+        if ($_POST['cmd']['updateDatabase']) {
+            $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+                TeraWurflUpdater::SOURCE_REMOTE
+            );
+
+            $updateResult = $this->showStatus(
+                $importer->import(true),
+                $importer->getUpdater()
+            );
+
+            return <<<HTML
+<div class="wurfl-module">
+    $updateResult
+</div>
+HTML;
+        }
+
+        return '';
     }
 
     /**
@@ -357,22 +437,8 @@ HTML;
     <input type="submit" name="cmd[updateDatabase]" value="Update database" />
 </div>
 HTML;
-        if ($_POST['cmd']['updateDatabase']) {
-            $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
-                TeraWurflUpdater::SOURCE_REMOTE
-            );
 
-            $updateResult = $this->showStatus(
-                $importer->import(true),
-                $importer->getUpdater()
-            );
-
-            $content .= <<<HTML
-<div class="wurfl-module">
-    $updateResult
-</div>
-HTML;
-        }
+        $content .= $this->performDatabaseUpdate();
 
         $this->content .= $this->doc->section(
             'Update WURFL database from a remote repository',
