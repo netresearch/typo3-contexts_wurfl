@@ -11,10 +11,10 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'TYPO3 contexts - WURFL extension',
-	'description' => 'WURFL extension for TYPO3 contexts',
+	'title' => 'TYPO3 contexts: WURFL mobile data provider',
+	'description' => 'Mobile device detection for TYPO3 contexts',
 	'category' => 'misc',
-	'author' => 'Rico Sonntag',
+	'author' => 'Rico Sonntag, Christian Weiske',
 	'author_email' => 'rico.sonntag@netresearch.de',
 	'shy' => '',
 	'dependencies' => 'contexts',
@@ -28,11 +28,11 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 1,
 	'lockType' => '',
-	'author_company' => '',
-	'version' => '0.0.0',
+	'author_company' => 'Netresearch GmbH & Co.KG',
+	'version' => '0.2.0',
 	'constraints' => array(
 		'depends' => array(
-			'contexts' => '0.0.0-',
+			'contexts' => '0.2.0-',
 		),
 		'conflicts' => array(
 		),
