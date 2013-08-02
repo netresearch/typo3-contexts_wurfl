@@ -369,6 +369,17 @@ HTML;
      */
     protected function handleQueryDatabase()
     {
+        $agent = $hAgent = null;
+        if ($_REQUEST['cmd']['queryDatabase']
+            && trim($_REQUEST['inputCalc']['agent']['input'])
+        ) {
+            $agent = trim($_REQUEST['inputCalc']['agent']['input']);
+            $hAgent = htmlspecialchars($agent);
+            $hAgentDefault = $hAgent;
+        } else {
+            $hAgentDefault = htmlspecialchars($_SERVER['HTTP_USER_AGENT']);
+        }
+
         $content  = $this->getContentHead();
         $content .= <<<HTML
 <div class="wurfl-module">
@@ -378,18 +389,15 @@ HTML;
         <li>BlackBerry_4</li>
         <li>NokiaC2-05.1/2.0 (08.45) Profile/MIDP-2.1 Configuration/CLDC-1.1</li>
     </ul>
+    <br/>
 
-    <input type="text" name="inputCalc[agent][input]" size="80" />
+    <input type="text" name="inputCalc[agent][input]" size="80" value="$hAgentDefault"/>
     <br /><br/>
     <input type="submit" name="cmd[queryDatabase]" value="Submit" />
 </div>
 HTML;
-        if ($_POST['cmd']['queryDatabase']
-            && trim($_POST['inputCalc']['agent']['input'])
-        ) {
-            $wurfl = new Tx_Contexts_Wurfl_Api_Wurfl(
-                $_POST['inputCalc']['agent']['input']
-            );
+        if ($agent) {
+            $wurfl = new Tx_Contexts_Wurfl_Api_Wurfl($agent);
 
             $brandName = $wurfl->capabilities['product_info']['brand_name'];
             $modelName = $wurfl->capabilities['product_info']['model_name'];
@@ -401,6 +409,7 @@ HTML;
             $content .= <<<HTML
 <div class="wurfl-module">
     <h3>Details for the <em>$brandName $modelName</em></h3>
+    <p>User agent: <code>$hAgent</code</p>
     <div class="wurfl-module">$arrayOutput</div>
 </div>
 HTML;
