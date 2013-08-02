@@ -541,7 +541,14 @@ HTML;
     {
         $message = '';
 
-        if ($status) {
+        if ($status == Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+            $message .= t3lib_div::makeInstance(
+                't3lib_FlashMessage',
+                'WURFL database is up to date',
+                'No update needed',
+                t3lib_FlashMessage::INFO
+            )->render();
+        } else if ($status == Tx_Contexts_Wurfl_Api_Model_Import::STATUS_OK) {
             $version            = $updater->loader->version;
             $lastUpdated        = $updater->loader->last_updated;
             $mainDevices        = $updater->loader->mainDevices;
@@ -578,7 +585,13 @@ HTML;
     Update of database failed. The following errors occured:
     <ul>
 HTML;
-            foreach ($updater->loader->errors as $error) {
+
+            if ($status == Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NOT_CONFIGURED) {
+                $errors = array('Extension not configured');
+            } else {
+                $errors = $updater->loader->errors;
+            }
+            foreach ($errors as $error) {
                 $message .= "<li>$error</li>";
             }
 

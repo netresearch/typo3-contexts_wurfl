@@ -41,6 +41,16 @@ class Tx_Contexts_Wurfl_Api_Model_Import
     const STATUS_NO_UPDATE = 1;
 
     /**
+     * @var Extension has not been configured yet
+     */
+    const STATUS_NOT_CONFIGURED = 254;
+
+    /**
+     * @var Some error occured
+     */
+    const STATUS_ERROR = 255;
+
+    /**
      * TeraWurfl instance.
      *
      * @var TeraWurfl
@@ -93,7 +103,7 @@ class Tx_Contexts_Wurfl_Api_Model_Import
      *
      * @param boolean $force Force update (only valid for type "remote")
      *
-     * @return boolean
+     * @return int Import status code, see class constants
      */
     public function import($force = false)
     {
@@ -103,13 +113,16 @@ class Tx_Contexts_Wurfl_Api_Model_Import
                 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
             );
 
+            if (!isset($extConf['remoteRepository'])) {
+                return self::STATUS_NOT_CONFIGURED;
+            }
+
             $this->updater->downloader->download_url
                 = $extConf['remoteRepository'];
 
             try {
                 $available = $this->updater->isUpdateAvailable();
-            }
-            catch (Exception $ex) {
+            } catch (Exception $ex) {
                 $available = true;
             }
 
@@ -121,11 +134,11 @@ class Tx_Contexts_Wurfl_Api_Model_Import
 
         try {
             return $this->updater->update();
-        }
-        catch (TeraWurflUpdateDownloaderException $ex) {
+        } catch (TeraWurflUpdateDownloaderException $ex) {
+            return self::STATUS_ERROR;
         }
 
-        return true;
+        return self::STATUS_OK;
     }
 }
 ?>
