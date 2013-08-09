@@ -191,7 +191,7 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
      */
     protected function showStatus($status, TeraWurflUpdater $updater)
     {
-        if ($status) {
+        if ($status === true) {
             $this->cli_echo('Update of database successfully done.' . "\n\n");
 
             $this->cli_echo(

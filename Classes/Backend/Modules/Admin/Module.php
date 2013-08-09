@@ -262,17 +262,19 @@ HTML;
 
             if ($_POST['cmd']['createDATADIR']) {
                 if (!mkdir($dataPath)) {
-                    $content .= <<<HTML
-<div style="margin: 20px 0px;" class="typo3-message message-error">
-    <strong>ERROR: </strong>Unable to create directory "$dataPath".
-</div>
-HTML;
+                    $content .= t3lib_div::makeInstance(
+                        't3lib_FlashMessage',
+                        'Unable to create directory "' . $dataPath . '".',
+                        'Error',
+                        t3lib_FlashMessage::ERROR
+                    )->render();
                 } else {
-                    $content .= <<<HTML
-<div style="margin: 20px 0px;" class="typo3-message message-ok">
-    Successfully created new directory "$dataPath".
-</div>
-HTML;
+                    $content .= t3lib_div::makeInstance(
+                        't3lib_FlashMessage',
+                        'Successfully created new directory "' . $dataPath . '".',
+                        '',
+                        t3lib_FlashMessage::OK
+                    )->render();
                 }
             }
 
@@ -301,11 +303,12 @@ HTML;
         } catch (Exception $e) {
             $content = $this->getContentHead();
 
-            $content .= <<<HTML
-<div style="margin: 20px 0px;" class="typo3-message message-error">
-    <strong>ERROR: </strong>No valid WURFL database found. An initial import has do be done.
-</div>
-HTML;
+            $content .= t3lib_div::makeInstance(
+                't3lib_FlashMessage',
+                'No valid WURFL database found. An initial import has to be done.',
+                'Error',
+                t3lib_FlashMessage::ERROR
+            )->render();
 
             // Use download url from extension configuration
             $extConf = unserialize(
@@ -318,14 +321,23 @@ HTML;
 <div class="wurfl-module">
     <div>Location: $downloadUrl</div>
     <div><em>The download url can be configured in the "contexts_wurfl" extension configuration.</em></div>
-    <div style="margin: 20px 0px;" class="typo3-message message-ok">
-        <strong>INFO: </strong>Be patient the initial import may take some time.
+    <div style="margin: 20px 0px;">
+HTML;
+
+        $content .= t3lib_div::makeInstance(
+            't3lib_FlashMessage',
+            'Be patient the initial import may take some time.',
+            'Info',
+            t3lib_FlashMessage::INFO
+        )->render();
+
+$content .= <<<HTML
     </div>
     <input type="submit" name="cmd[updateDatabase]" value="Perform initial import" />
 </div>
 HTML;
 
-            $content .= $this->performDatabaseUpdate();
+            $content .= $this->performDatabaseUpdate(true);
 
             $this->content .= $this->doc->section(
                 'Initial WURFL setup:', $content, false, true
@@ -338,9 +350,11 @@ HTML;
     /**
      * Methods checks the post command and starts an database update.
      *
+     * @param boolean $force Force update
+     *
      * @return string
      */
-    protected function performDatabaseUpdate()
+    protected function performDatabaseUpdate($force = false)
     {
         if ($_POST['cmd']['updateDatabase']) {
             $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
@@ -348,7 +362,7 @@ HTML;
             );
 
             $updateResult = $this->showStatus(
-                $importer->import(true),
+                $importer->import($force),
                 $importer->getUpdater()
             );
 
@@ -440,8 +454,17 @@ HTML;
 <div class="wurfl-module">
     <div>Location: $downloadUrl</div>
     <div><em>The download url can be configured in the "contexts_wurfl" extension configuration.</em></div>
-    <div style="margin: 20px 0px;" class="typo3-message message-warning">
-        <strong>WARNING: </strong>This will replace your existing WURFL database.
+    <div style="margin: 20px 0px;">
+HTML;
+
+        $content .= t3lib_div::makeInstance(
+            't3lib_FlashMessage',
+            'This will replace your existing WURFL database.',
+            'Warning',
+            t3lib_FlashMessage::WARNING
+        )->render();
+
+$content .= <<<HTML
     </div>
     <input type="submit" name="cmd[updateDatabase]" value="Update database" />
 </div>
@@ -477,13 +500,12 @@ HTML;
             $result = $wurfl->db->createCacheTable();
 
             if ($result) {
-                $content .= <<<HTML
-<div class="wurfl-module">
-    <div style="margin: 35px 0px 0px;" class="typo3-message message-ok">
-        The cache has been successfully cleared.
-    </div>
-</div>
-HTML;
+                $content .= t3lib_div::makeInstance(
+                    't3lib_FlashMessage',
+                    'The cache has been successfully cleared.',
+                    '',
+                    t3lib_FlashMessage::OK
+                )->render();
             }
         }
 
@@ -514,13 +536,12 @@ HTML;
             $result = $wurfl->db->rebuildCacheTable();
 
             if ($result) {
-                $content .= <<<HTML
-<div class="wurfl-module">
-    <div style="margin: 35px 0px 0px;" class="typo3-message message-ok">
-        The cache has been successfully rebuilt.
-    </div>
-</div>
-HTML;
+                $content .= t3lib_div::makeInstance(
+                    't3lib_FlashMessage',
+                    'The cache has been successfully rebuilt.',
+                    '',
+                    t3lib_FlashMessage::OK
+                )->render();
             }
         }
 
@@ -532,16 +553,25 @@ HTML;
     /**
      * Get status HTML of update.
      *
-     * @param boolean          $status  TRUE/FALSE
+     * @param integer          $status  Update status code
      * @param TeraWurflUpdater $updater WURFL updater instance
      *
      * @return string
      */
     protected function showStatus($status, TeraWurflUpdater $updater)
     {
+        if ($status === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+            return t3lib_div::makeInstance(
+                't3lib_FlashMessage',
+                'WURFL database is up to date',
+                'No update needed',
+                t3lib_FlashMessage::INFO
+            )->render();
+        }
+
         $message = '';
 
-        if ($status) {
+        if ($status === true) {
             $version            = $updater->loader->version;
             $lastUpdated        = $updater->loader->last_updated;
             $mainDevices        = $updater->loader->mainDevices;
@@ -566,6 +596,7 @@ HTML;
     The following errors occured during update:
     <ul>
 HTML;
+
                 foreach ($updater->loader->errors as $error) {
                     $message .= "<li>$error</li>";
                 }
@@ -578,7 +609,13 @@ HTML;
     Update of database failed. The following errors occured:
     <ul>
 HTML;
-            foreach ($updater->loader->errors as $error) {
+
+            if ($status === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NOT_CONFIGURED) {
+                $errors = array('Extension not configured');
+            } else {
+                $errors = $updater->loader->errors;
+            }
+            foreach ($errors as $error) {
                 $message .= "<li>$error</li>";
             }
 
