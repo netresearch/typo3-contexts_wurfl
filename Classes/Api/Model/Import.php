@@ -31,11 +31,6 @@ require_once $strApiPath . '/TeraWurflUtils/TeraWurflUpdater.php';
 class Tx_Contexts_Wurfl_Api_Model_Import
 {
     /**
-     * @var Return code: Update ok
-     */
-    const STATUS_OK = 0;
-
-    /**
      * @var Return code: No update available, Data up to date
      */
     const STATUS_NO_UPDATE = 1;
@@ -103,7 +98,7 @@ class Tx_Contexts_Wurfl_Api_Model_Import
      *
      * @param boolean $force Force update (only valid for type "remote")
      *
-     * @return int Import status code, see class constants
+     * @return integer Import status code, see class constants
      */
     public function import($force = false)
     {
@@ -113,7 +108,7 @@ class Tx_Contexts_Wurfl_Api_Model_Import
                 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['contexts_wurfl']
             );
 
-            if (!isset($extConf['remoteRepository'])) {
+            if (empty($extConf['remoteRepository'])) {
                 return self::STATUS_NOT_CONFIGURED;
             }
 
@@ -133,12 +128,13 @@ class Tx_Contexts_Wurfl_Api_Model_Import
         }
 
         try {
+            // update() returns TRUE or FALSE
             return $this->updater->update();
         } catch (TeraWurflUpdateDownloaderException $ex) {
             return self::STATUS_ERROR;
         }
 
-        return self::STATUS_OK;
+        return true;
     }
 }
 ?>
