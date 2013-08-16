@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "contexts_wurfl".
  *
- * Auto generated 16-08-2013 14:51
+ * Auto generated 16-08-2013 14:54
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -32,8 +32,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.3.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.5.0-6.1.99',
-			'contexts' => '0.2.0-',
+			'typo3' => '4.5.0-6.2.99',
+			'contexts' => '0.3.0-',
 		),
 		'conflicts' => array(
 		),
