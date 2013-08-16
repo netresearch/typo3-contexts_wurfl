@@ -1,14 +1,15 @@
-*********************
-TYPO3 Contexts: WURFL
-*********************
-Provides context filters based on user devices.
+*****************************
+Multi-channel contexts: WURFL
+*****************************
+Provides context filters based on user device properties.
+
 Allows you to show pages and content elements specifically
 for mobile devices, tablet or for different screen sizes.
 
 It has the following device detection features:
 
-- mobile devices yes/no
-- wireless/tablet/phone/smart TV yes/no
+- Mobile devices yes/no
+- Wireless/tablet/phone/smart TV yes/no
 - Screen size range
 - Device brand name
 - Browser used

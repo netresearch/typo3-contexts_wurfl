@@ -11,8 +11,8 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'TYPO3 contexts: WURFL mobile data provider',
-	'description' => 'Mobile device detection for TYPO3 contexts',
+	'title' => 'Multi-channel contexts: WURFL mobile data provider',
+	'description' => 'Mobile device detection for multi-channel contexts',
 	'category' => 'misc',
 	'author' => 'Christian Weiske, Marian Pollzien, Rico Sonntag',
 	'author_email' => 'typo3.org@netresearch.de',
