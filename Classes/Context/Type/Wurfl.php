@@ -62,7 +62,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
      */
     public function match(array $arDependencies = array())
     {
-        $this->match = true;
+        $this->match = false;
         $this->wurfl = new Tx_Contexts_Wurfl_Api_Wurfl();
 
         $this->matchDeviceType()
@@ -80,38 +80,28 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     protected function matchDeviceType()
     {
         // Match mobile device
-        if ($this->match
-            && ((bool) $this->getConfValue('settings.isMobile', false))
-        ) {
-            $this->match &= $this->wurfl->isMobile();
-        }
+        if ($this->getConfValue('settings.isMobile', false)) {
+            $this->match |= $this->wurfl->isMobile();
+        } else {
+            // Match wireless device
+            if ($this->getConfValue('settings.isWireless', false)) {
+                $this->match |= $this->wurfl->isWireless();
+            }
 
-        // Match wireless device
-        if ($this->match
-            && ((bool) $this->getConfValue('settings.isWireless', false))
-        ) {
-            $this->match &= $this->wurfl->isWireless();
-        }
+            // Match tablet
+            if ($this->getConfValue('settings.isTablet', false)) {
+                $this->match |= $this->wurfl->isTablet();
+            }
 
-        // Match tablet
-        if ($this->match
-            && ((bool) $this->getConfValue('settings.isTablet', false))
-        ) {
-            $this->match &= $this->wurfl->isTablet();
+            // Match phone
+            if ($this->getConfValue('settings.isPhone', false)) {
+                $this->match |= $this->wurfl->isPhone();
+            }
         }
 
         // Match smart tv
-        if ($this->match
-            && ((bool) $this->getConfValue('settings.isSmartTv', false))
-        ) {
-            $this->match &= $this->wurfl->isSmartTv();
-        }
-
-        // Match phone
-        if ($this->match
-            && ((bool) $this->getConfValue('settings.isPhone', false))
-        ) {
-            $this->match &= $this->wurfl->isPhone();
+        if ($this->getConfValue('settings.isSmartTv', false)) {
+            $this->match |= $this->wurfl->isSmartTv();
         }
 
         return $this;
