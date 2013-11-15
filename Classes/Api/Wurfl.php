@@ -110,7 +110,7 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function isMobile()
     {
-        return ($this->isWireLess() || $this->isTablet());
+        return $this->isPhone() || $this->isTablet() || $this->isWireless();
     }
 
     /**
