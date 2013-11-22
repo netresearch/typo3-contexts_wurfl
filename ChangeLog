@@ -2,7 +2,8 @@
 
 	* Fix detection with combination of settings phone|tablet|wireless
 	* Remove manual.sxw; it is not needed by TER anymore
-	* Set TYPO3 dependency to 6.2.99
+	* Set maximum TYPO3 version to 6.2.99
+	* Set minimum TYPO3 version to 4.6.0
 	* Version 0.3.1
 
 2013-08-16  Christian Weiske  <christian.weiske@netresearch.de>
