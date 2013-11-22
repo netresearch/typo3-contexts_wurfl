@@ -27,54 +27,6 @@
                             </config>
                         </TCEforms>
                     </settings.isMobile>
-                    <settings.isWireless>
-                        <TCEforms>
-                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless</label>
-                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                            <config>
-                                <type>check</type>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless.description</numIndex>
-                                        <numIndex index="1">1</numIndex>
-                                    </numIndex>
-                                </items>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
-                    </settings.isWireless>
-                    <settings.isTablet>
-                        <TCEforms>
-                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet</label>
-                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                            <config>
-                                <type>check</type>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet.description</numIndex>
-                                        <numIndex index="1">1</numIndex>
-                                    </numIndex>
-                                </items>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
-                    </settings.isTablet>
-                    <settings.isSmartTv>
-                        <TCEforms>
-                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv</label>
-                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
-                            <config>
-                                <type>check</type>
-                                <items type="array">
-                                    <numIndex index="0" type="array">
-                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv.description</numIndex>
-                                        <numIndex index="1">1</numIndex>
-                                    </numIndex>
-                                </items>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
-                    </settings.isSmartTv>
                     <settings.isPhone>
                         <TCEforms>
                             <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isPhone</label>
@@ -91,6 +43,53 @@
                             </config>
                         </TCEforms>
                     </settings.isPhone>
+                    <settings.isTablet>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isTablet.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isTablet>
+                    <settings.isWireless>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless</label>
+                            <displayCond>FIELD:settings.isMobile:REQ:false</displayCond>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isWireless.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isWireless>
+                    <settings.isSmartTv>
+                        <TCEforms>
+                            <label>LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv</label>
+                            <config>
+                                <type>check</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:contexts_wurfl/Resources/Private/Language/locallang_flex.xml:settings.isSmartTv.description</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.isSmartTv>
                     <settings.setupCheck>
                         <TCEforms>
                             <label></label>
