@@ -129,7 +129,8 @@ JS;
                         $this->id,
                         'SET[function]',
                         $this->MOD_SETTINGS['function'],
-                        $this->MOD_MENU['function']
+                        $this->MOD_MENU['function'],
+                        'index.php'
                     )
                 )
             );
