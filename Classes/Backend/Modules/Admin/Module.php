@@ -324,14 +324,14 @@ HTML;
     <div style="margin: 20px 0px;">
 HTML;
 
-        $content .= t3lib_div::makeInstance(
-            't3lib_FlashMessage',
-            'Be patient the initial import may take some time.',
-            'Info',
-            t3lib_FlashMessage::INFO
-        )->render();
+            $content .= t3lib_div::makeInstance(
+                't3lib_FlashMessage',
+                'Be patient the initial import may take some time.',
+                'Info',
+                t3lib_FlashMessage::INFO
+            )->render();
 
-$content .= <<<HTML
+            $content .= <<<HTML
     </div>
     <input type="submit" name="cmd[updateDatabase]" value="Perform initial import" />
 </div>
@@ -464,7 +464,7 @@ HTML;
             t3lib_FlashMessage::WARNING
         )->render();
 
-$content .= <<<HTML
+        $content .= <<<HTML
     </div>
     <input type="submit" name="cmd[updateDatabase]" value="Update database" />
 </div>

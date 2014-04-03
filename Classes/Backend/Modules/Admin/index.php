@@ -26,7 +26,7 @@ $module->init();
 
 // Include files?
 foreach ($module->include_once as $includeFile) {
-    require_once $includeFile;
+    include_once $includeFile;
 }
 
 $module->main();
