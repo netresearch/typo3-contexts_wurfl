@@ -5,4 +5,4 @@
 # *****************************************************
 
 # cat=basic/links/; type=string; label=URL to download wurfl.xml or compressed version of it (zip)
-remoteRepository = http://sourceforge.net/projects/wurfl/files/WURFL/2.3.3/wurfl-2.3.3.zip/download
+remoteRepository = http://sourceforge.net/projects/wurfl/files/WURFL/2.3.5/wurfl-2.3.5.zip/download
