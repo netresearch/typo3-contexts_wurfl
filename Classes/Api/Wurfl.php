@@ -45,6 +45,11 @@ require_once $strApiPath . '/TeraWurfl.php';
 class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
 {
     /**
+     * @var Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector
+     */
+    protected static $staticDb;
+
+    /**
      * Constructor.
      *
      * @param string $userAgent  HTTP user agent string
@@ -52,7 +57,26 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
      */
     public function __construct($userAgent = null, $httpAccept = null)
     {
-        parent::__construct();
+        // Don't call parent::__construct as it attempts to connect the DB
+        // every time (we want it rather static) - following is other stuff
+        // from there:
+        $this->errors = array();
+        $this->capabilities = array();
+        $this->matcherHistory = array();
+        $this->rootdir = dirname(__FILE__).'/';
+
+        // Create the database connection only once
+        // @see Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector::connect()
+        if (!self::$staticDb) {
+            $db = new Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector();
+            if (!$db->connect()) {
+                throw new TeraWurflDatabaseException(
+                    'Cannot connect to database: ' . $db->getLastError()
+                );
+            }
+            self::$staticDb = $db;
+        }
+        $this->db = self::$staticDb;
 
         try {
             // Get device capabilities

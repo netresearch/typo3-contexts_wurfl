@@ -15,6 +15,9 @@ return array(
     'tx_contexts_wurfl_api_wurfl'
         => $extensionClassesPath . 'Api/Wurfl.php',
 
+    'tx_contexts_wurfl_api_wurfl_databaseconnector'
+        => $extensionClassesPath . 'Api/Wurfl/DatabaseConnector.php',
+
     'tx_contexts_wurfl_api_model_import'
         => $extensionClassesPath . 'Api/Model/Import.php',
 
