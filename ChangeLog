@@ -1,3 +1,8 @@
+2014-10-24  Christian Opitz  <christian.opitz@sobol.nr>
+
+	* Avoid multiple database connections by WURFL
+	* Version 0.4.1
+
 2014-03-07  Christian Weiske  <christian.weiske@netresearch.de>
 
 	* Set minimum TYPO3 version to 4.5.0
