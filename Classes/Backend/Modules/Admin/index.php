@@ -22,8 +22,8 @@ $BE_USER->modAccess($MCONF, 1);
 
 require_once 'Module.php';
 
-/* @var $module Tx_Contexts_Wurfl_Backend_Modules_Admin_Module */
-$module = t3lib_div::makeInstance('Tx_Contexts_Wurfl_Backend_Modules_Admin_Module');
+/* @var $module Tx_ContextsWurfl_Backend_Modules_Admin_Module */
+$module = t3lib_div::makeInstance('Tx_ContextsWurfl_Backend_Modules_Admin_Module');
 $module->init();
 
 // Include files?

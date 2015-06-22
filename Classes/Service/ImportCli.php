@@ -20,7 +20,7 @@ declare(encoding = 'UTF-8');
  * @subpackage Service
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
+class Tx_ContextsWurfl_Service_ImportCli extends t3lib_cli
 {
     /**
      * CLI return code: All ok.
@@ -137,7 +137,7 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
     {
         $this->cli_echo('Beginning import from local source.' . "\n");
 
-        $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+        $importer = new Tx_ContextsWurfl_Api_Model_Import(
             TeraWurflUpdater::SOURCE_LOCAL
         );
 
@@ -161,14 +161,14 @@ class Tx_Contexts_Wurfl_Service_ImportCli extends t3lib_cli
     {
         $this->cli_echo('Beginning import from remote source.' . "\n");
 
-        $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+        $importer = new Tx_ContextsWurfl_Api_Model_Import(
             TeraWurflUpdater::SOURCE_REMOTE
         );
 
         $result = $importer->import($force);
 
         // No update available, WURFL data is already up to date
-        if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+        if ($result === Tx_ContextsWurfl_Api_Model_Import::STATUS_NO_UPDATE) {
             $this->cli_echo(
                 'No update necessary. Your WURFL data is already up to date.'
                 . "\n"

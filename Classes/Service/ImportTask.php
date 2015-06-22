@@ -20,7 +20,7 @@ declare(encoding = 'UTF-8');
  * @subpackage Service
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Service_ImportTask extends tx_scheduler_Task
+class Tx_ContextsWurfl_Service_ImportTask extends tx_scheduler_Task
 {
     /**
      * Perform WURFL data import.
@@ -29,14 +29,14 @@ class Tx_Contexts_Wurfl_Service_ImportTask extends tx_scheduler_Task
      */
     public function execute()
     {
-        $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+        $importer = new Tx_ContextsWurfl_Api_Model_Import(
             TeraWurflUpdater::SOURCE_REMOTE
         );
 
         $result = $importer->import();
 
         // No update available, WURFL data is already up to date
-        if ($result === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+        if ($result === Tx_ContextsWurfl_Api_Model_Import::STATUS_NO_UPDATE) {
             $this->scheduler->log(
                 'No update necessary. Your WURFL data is already up to date.'
             );

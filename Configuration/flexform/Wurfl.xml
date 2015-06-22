@@ -95,7 +95,7 @@
                             <label></label>
                             <config>
                                 <form_type>user</form_type>
-                                <userFunc>Tx_Contexts_Wurfl_Backend-&gt;setupCheck</userFunc>
+                                <userFunc>Tx_ContextsWurfl_Backend-&gt;setupCheck</userFunc>
                             </config>
                         </TCEforms>
                     </settings.setupCheck>
@@ -174,7 +174,7 @@
                                     </numIndex>
                                 </items>
 -->
-                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getBrandNames</itemsProcFunc>
+                                <itemsProcFunc>Tx_ContextsWurfl_Backend-&gt;getBrandNames</itemsProcFunc>
                                 <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>
@@ -196,7 +196,7 @@
                                     </numIndex>
                                 </items>
 -->
-                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getModelNames</itemsProcFunc>
+                                <itemsProcFunc>Tx_ContextsWurfl_Backend-&gt;getModelNames</itemsProcFunc>
                                 <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>
@@ -217,7 +217,7 @@
                                     </numIndex>
                                 </items>
 -->
-                                <itemsProcFunc>Tx_Contexts_Wurfl_Backend-&gt;getMobileBrowsers</itemsProcFunc>
+                                <itemsProcFunc>Tx_ContextsWurfl_Backend-&gt;getMobileBrowsers</itemsProcFunc>
                                 <size>10</size>
                                 <default></default>
                                 <minitems>0</minitems>

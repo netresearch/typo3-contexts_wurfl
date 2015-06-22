@@ -29,7 +29,7 @@ require_once $strApiPath . '/TeraWurfl.php';
  * @subpackage Module
  * @author     Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
+class Tx_ContextsWurfl_Backend_Modules_Admin_Module extends t3lib_SCbase
 {
     /**
      * Adds items to the ->MOD_MENU array. Used for the function menu selector.
@@ -358,7 +358,7 @@ HTML;
     protected function performDatabaseUpdate($force = false)
     {
         if ($_POST['cmd']['updateDatabase']) {
-            $importer = new Tx_Contexts_Wurfl_Api_Model_Import(
+            $importer = new Tx_ContextsWurfl_Api_Model_Import(
                 TeraWurflUpdater::SOURCE_REMOTE
             );
 
@@ -412,7 +412,7 @@ HTML;
 </div>
 HTML;
         if ($agent) {
-            $wurfl = new Tx_Contexts_Wurfl_Api_Wurfl($agent);
+            $wurfl = new Tx_ContextsWurfl_Api_Wurfl($agent);
 
             $brandName = $wurfl->capabilities['product_info']['brand_name'];
             $modelName = $wurfl->capabilities['product_info']['model_name'];
@@ -561,7 +561,7 @@ HTML;
      */
     protected function showStatus($status, TeraWurflUpdater $updater)
     {
-        if ($status === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NO_UPDATE) {
+        if ($status === Tx_ContextsWurfl_Api_Model_Import::STATUS_NO_UPDATE) {
             return t3lib_div::makeInstance(
                 't3lib_FlashMessage',
                 'WURFL database is up to date',
@@ -611,7 +611,7 @@ HTML;
     <ul>
 HTML;
 
-            if ($status === Tx_Contexts_Wurfl_Api_Model_Import::STATUS_NOT_CONFIGURED) {
+            if ($status === Tx_ContextsWurfl_Api_Model_Import::STATUS_NOT_CONFIGURED) {
                 $errors = array('Extension not configured');
             } else {
                 $errors = $updater->loader->errors;

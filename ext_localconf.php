@@ -14,7 +14,7 @@ defined('TYPO3_MODE') or die('Access denied.');
 
 // Register the import task
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']
-	['Tx_Contexts_Wurfl_Service_ImportTask'] = array(
+	['Tx_ContextsWurfl_Service_ImportTask'] = array(
 		'extension'   => $_EXTKEY,
 		'title'       => 'LLL:EXT:' . $_EXTKEY
 			. '/Resources/Private/Language/locallang_mod.xml:importTask.name',

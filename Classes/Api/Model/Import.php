@@ -28,7 +28,7 @@ require_once $strApiPath . '/TeraWurflUtils/TeraWurflUpdater.php';
  * @package  WURFL
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Api_Model_Import
+class Tx_ContextsWurfl_Api_Model_Import
 {
     /**
      * @var Return code: No update available, Data up to date

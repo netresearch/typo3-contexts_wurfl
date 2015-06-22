@@ -42,10 +42,10 @@ require_once $strApiPath . '/TeraWurfl.php';
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @see      http://wurfl.sourceforge.net/help_doc.php
  */
-class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
+class Tx_ContextsWurfl_Api_Wurfl extends TeraWurfl
 {
     /**
-     * @var Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector
+     * @var Tx_ContextsWurfl_Api_Wurfl_DatabaseConnector
      */
     protected static $staticDb;
 
@@ -66,9 +66,9 @@ class Tx_Contexts_Wurfl_Api_Wurfl extends TeraWurfl
         $this->rootdir = dirname(__FILE__).'/';
 
         // Create the database connection only once
-        // @see Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector::connect()
+        // @see Tx_ContextsWurfl_Api_Wurfl_DatabaseConnector::connect()
         if (!self::$staticDb) {
-            $db = new Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector();
+            $db = new Tx_ContextsWurfl_Api_Wurfl_DatabaseConnector();
             if (!$db->connect()) {
                 throw new TeraWurflDatabaseException(
                     'Cannot connect to database: ' . $db->getLastError()

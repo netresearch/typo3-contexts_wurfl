@@ -29,8 +29,8 @@ defined('TYPO3_cliMode') or die('You cannot run this script directly!');
 require_once t3lib_extMgm::extPath('contexts_wurfl')
 	. 'Classes/Service/ImportCli.php';
 
-/* @var $cli Tx_Contexts_Wurfl_Service_ImportCli */
-$cli     = t3lib_div::makeInstance('Tx_Contexts_Wurfl_Service_ImportCli');
+/* @var $cli Tx_ContextsWurfl_Service_ImportCli */
+$cli     = t3lib_div::makeInstance('Tx_ContextsWurfl_Service_ImportCli');
 $nResult = $cli->main();
 
 exit($nResult);

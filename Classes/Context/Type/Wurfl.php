@@ -36,7 +36,7 @@ require_once t3lib_extMgm::extPath('contexts') . 'Classes/Context/Abstract.php';
  * @package  WURFL
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
+class Tx_ContextsWurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
 {
     /**
      * Match result (Default TRUE means matches any device).
@@ -48,7 +48,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     /**
      * WURFL api instance.
      *
-     * @var Tx_Contexts_Wurfl_Api_Wurfl
+     * @var Tx_ContextsWurfl_Api_Wurfl
      */
     protected $wurfl = null;
 
@@ -63,7 +63,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     public function match(array $arDependencies = array())
     {
         $this->match = false;
-        $this->wurfl = new Tx_Contexts_Wurfl_Api_Wurfl();
+        $this->wurfl = new Tx_ContextsWurfl_Api_Wurfl();
 
         $this->matchDeviceType()
             ->matchDeviceDimension()
@@ -75,7 +75,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     /**
      * Perform match by device type.
      *
-     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     * @return Tx_ContextsWurfl_Context_Type_Wurfl
      */
     protected function matchDeviceType()
     {
@@ -110,7 +110,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     /**
      * Perform match by device dimension.
      *
-     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     * @return Tx_ContextsWurfl_Context_Type_Wurfl
      */
     protected function matchDeviceDimension()
     {
@@ -154,7 +154,7 @@ class Tx_Contexts_Wurfl_Context_Type_Wurfl extends Tx_Contexts_Context_Abstract
     /**
      * Perform match by product infos.
      *
-     * @return Tx_Contexts_Wurfl_Context_Type_Wurfl
+     * @return Tx_ContextsWurfl_Context_Type_Wurfl
      */
     protected function matchProductInfo()
     {

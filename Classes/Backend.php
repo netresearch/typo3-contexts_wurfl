@@ -40,7 +40,7 @@ require_once $strApiPath . '/TeraWurfl.php';
  * @package  WURFL
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  */
-class Tx_Contexts_Wurfl_Backend
+class Tx_ContextsWurfl_Backend
 {
     /**
      * Get all brand names.

@@ -32,7 +32,7 @@ declare(encoding = 'UTF-8');
  * @author   Christian Opitz <christian.opitz@netresearch.de>
  * @see      http://wurfl.sourceforge.net/help_doc.php
  */
-class Tx_Contexts_Wurfl_Api_Wurfl_DatabaseConnector extends TeraWurflDatabase_MySQL5
+class Tx_ContextsWurfl_Api_Wurfl_DatabaseConnector extends TeraWurflDatabase_MySQL5
 {
     protected $sharedConnection = false;
 
