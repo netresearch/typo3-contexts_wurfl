@@ -37,7 +37,7 @@ if (!isset($_GET['force_ua'])) {
 <body>
 <form action="check_wurfl.php" method="GET">
 Mobile device user agent:<br />
-<input type="text" name="force_ua" size="100" value="<?php echo strip_tags($_GET['force_ua'])?>">
+<input type="text" name="force_ua" size="100" value="<?php echo htmlspecialchars($_GET['force_ua'])?>">
 <input type="submit" name="submit" value="Submit"/>
 </form>
 Try some of these:
@@ -85,7 +85,7 @@ $wurflObj = new TeraWurfl();
 $init_class = microtime(true);
 
 // Get the capabilities from the object
-$matched = $wurflObj->GetDeviceCapabilitiesFromAgent(strip_tags($_GET['force_ua']));
+$matched = $wurflObj->GetDeviceCapabilitiesFromAgent(htmlspecialchars($_GET['force_ua']));
 
 $end = microtime(true);
 
@@ -139,7 +139,7 @@ echo "</pre>";
 ?>
 <form action="check_wurfl.php" method="GET">
 Mobile device user agent:<br />
-<input type="text" name="force_ua" size="100" value="<?php echo strip_tags($_GET['force_ua'])?>">
+<input type="text" name="force_ua" size="100" value="<?php echo htmlspecialchars($_GET['force_ua'])?>">
 <input type="submit" name="submit" value="Submit"/>
 </form>
 </body>
